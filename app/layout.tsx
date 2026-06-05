@@ -3,9 +3,9 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Uniport - Chain-Abstraction SDK",
+  title: "Uniport - Cross-Chain Deposit SDK",
   description:
-    "Uniport lets crypto apps accept deposits from any supported chain and settle to the destination token they choose.",
+    "Uniport lets apps receive assets on their home chain while users pay from whatever chain they already use.",
 };
 
 export default function RootLayout({
