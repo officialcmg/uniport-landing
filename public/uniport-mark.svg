@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none" role="img" aria-labelledby="title desc">
   <title id="title">Uniport mark</title>
-  <desc id="desc">A rounded route connecting two vertical port rails.</desc>
+  <desc id="desc">A rounded route connecting two vertical port lines.</desc>
   <g stroke="#073F28" stroke-linecap="round" stroke-linejoin="round">
     <rect x="118" y="82" width="76" height="348" rx="38" stroke-width="30"/>
     <rect x="318" y="82" width="76" height="348" rx="38" stroke-width="30"/>

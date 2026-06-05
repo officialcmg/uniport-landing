@@ -1,29 +1,43 @@
 import Image from "next/image";
 
-const supportedRails = [
-  { name: "Ethereum", icon: "/chains/ethereum.svg" },
-  { name: "Base", icon: "/chains/base.svg" },
-  { name: "Optimism", icon: "/chains/optimism.svg" },
-  { name: "Arbitrum", icon: "/chains/arbitrum.svg" },
-  { name: "Polygon", icon: "/chains/polygon.svg" },
-  { name: "Solana", icon: "/chains/solana.svg" },
-  { name: "Sui", icon: "/chains/sui.svg" },
-  { name: "NEAR", icon: "/chains/near.svg" },
-  { name: "Bitcoin", icon: "/chains/bitcoin.svg" },
-  { name: "Avalanche", icon: "/chains/avalanche.svg" },
-  { name: "BNB Chain", icon: "/chains/bnb.svg" },
-  { name: "Aptos", icon: "/chains/aptos.svg" },
-  { name: "TON", icon: "/chains/ton.svg" },
-  { name: "Tron", icon: "/chains/tron.svg" },
-  { name: "Cardano", icon: "/chains/cardano.svg" },
+const supportedChains = [
+  { name: "Ethereum", icon: "/chains/ethereum.png" },
+  { name: "Base", icon: "/chains/base.png" },
+  { name: "Optimism", icon: "/chains/optimism.png" },
+  { name: "Arbitrum", icon: "/chains/arbitrum.png" },
+  { name: "Polygon", icon: "/chains/polygon.png" },
+  { name: "Solana", icon: "/chains/solana.png" },
+  { name: "Sui", icon: "/chains/sui.png" },
+  { name: "NEAR", icon: "/chains/near.png" },
+  { name: "Bitcoin", icon: "/chains/bitcoin.png" },
+  { name: "Avalanche", icon: "/chains/avalanche.png" },
+  { name: "BNB Chain", icon: "/chains/bnb.png" },
+  { name: "Aptos", icon: "/chains/aptos.png" },
+  { name: "TON", icon: "/chains/ton.png" },
+  { name: "Tron", icon: "/chains/tron.png" },
 ];
 
 const useCases = [
-  "Account funding",
-  "Wallet top-ups",
-  "DeFi deposits",
-  "Marketplace checkout",
-  "App onboarding",
+  {
+    title: "Account funding",
+    description: "Let users top up balances from assets they already hold.",
+  },
+  {
+    title: "Wallet top-ups",
+    description: "Give embedded or app wallets a source-chain flexible funding path.",
+  },
+  {
+    title: "DeFi deposits",
+    description: "Accept liquidity without sending users away to bridge first.",
+  },
+  {
+    title: "Marketplace checkout",
+    description: "Receive the settlement asset while buyers pay from their chain.",
+  },
+  {
+    title: "App onboarding",
+    description: "Turn first deposits into an in-app flow instead of a bridge task.",
+  },
 ];
 
 function LogoMark({ size = 48 }: { size?: number }) {
@@ -147,7 +161,7 @@ export default function LandingPage() {
 
         <div className="hero-grid" id="top">
           <div className="hero-copy">
-            <p className="eyebrow">Chain-abstraction deposits</p>
+            <p className="eyebrow">Deposits from any chain</p>
             <h1>Let users deposit from anywhere your app does not live.</h1>
             <p className="hero-lede">
               Uniport lets apps receive assets on their home chain while users
@@ -184,9 +198,10 @@ export default function LandingPage() {
               <div className="wallet-card">
                 <span className="card-label">User pays from</span>
                 <div className="source-list">
+                  <span>Ethereum</span>
+                  <span>Bitcoin</span>
                   <span>Solana</span>
-                  <span>Base</span>
-                  <span>Arbitrum</span>
+                  <span>+19 more</span>
                 </div>
               </div>
 
@@ -202,9 +217,6 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="sdk-note">
-              <code>{`<UniportButton destinationToken="optimismUSDC" />`}</code>
-            </div>
           </div>
         </div>
       </section>
@@ -271,28 +283,30 @@ export default function LandingPage() {
             flow where your app needs funds on a specific chain but users arrive
             with assets somewhere else.
           </p>
-          <div className="mini-steps" aria-label="How Uniport works">
-            <span>1. App sets destination</span>
-            <span>2. User picks source</span>
-            <span>3. Uniport returns instructions</span>
-            <span>4. App receives settlement</span>
-          </div>
         </div>
         <div className="developer-visual">
           <SdkSnippet />
-          <div className="integration-results" aria-label="SDK integration outcomes">
-            <div>
-              <span>Frontend</span>
-              <strong>One drop-in button</strong>
-            </div>
-            <div>
-              <span>Backend</span>
-              <strong>Hosted quote routing</strong>
-            </div>
-            <div>
-              <span>User flow</span>
-              <strong>Deposit instructions returned</strong>
-            </div>
+          <div className="developer-flow-grid" aria-label="How Uniport works">
+            <article>
+              <span>01</span>
+              <strong>Set destination</strong>
+              <p>Your app chooses the token, chain, and recipient.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <strong>User picks source</strong>
+              <p>The payer chooses where their assets are coming from.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <strong>Quote returns</strong>
+              <p>Uniport gives exact amount and deposit instructions.</p>
+            </article>
+            <article>
+              <span>04</span>
+              <strong>App receives</strong>
+              <p>Funds settle where the app asked to receive them.</p>
+            </article>
           </div>
         </div>
       </section>
@@ -304,14 +318,18 @@ export default function LandingPage() {
         </div>
         <div className="use-case-grid">
           {useCases.map((useCase) => (
-            <span key={useCase}>{useCase}</span>
+            <article key={useCase.title}>
+              <span aria-hidden="true">+</span>
+              <h3>{useCase.title}</h3>
+              <p>{useCase.description}</p>
+            </article>
           ))}
         </div>
       </section>
 
-      <section className="content-section rail-section" id="rails">
-        <div className="rail-copy">
-          <p className="eyebrow">Supported rails</p>
+      <section className="content-section chain-section" id="chains">
+        <div className="chain-copy">
+          <p className="eyebrow">Supported chains</p>
           <h2>Built around the chains users already hold assets on.</h2>
           <p>
             Uniport is designed for a multi-chain world: apps can stay focused
@@ -320,8 +338,13 @@ export default function LandingPage() {
           </p>
         </div>
         <div className="chain-cloud">
-          {supportedRails.map((chain) => (
-            <span className="chain-card" key={chain.name}>
+          {supportedChains.map((chain) => (
+            <span
+              aria-label={chain.name}
+              className="chain-card"
+              key={chain.name}
+              title={chain.name}
+            >
               <Image
                 alt=""
                 aria-hidden="true"
@@ -333,21 +356,39 @@ export default function LandingPage() {
               <span>{chain.name}</span>
             </span>
           ))}
+          <span
+            aria-label="More supported chains"
+            className="chain-card chain-card-more"
+            title="More supported chains"
+          >
+            <span className="more-icon" aria-hidden="true">+</span>
+            <span>More chains</span>
+          </span>
         </div>
       </section>
 
       <section className="content-section final-cta">
         <div>
-          <p className="eyebrow">The promise</p>
+          <p className="eyebrow">Launch with Uniport</p>
           <h2>Plug into any ecosystem from anywhere.</h2>
           <p>
             Uniport is a chain-abstraction SDK that lets any crypto app accept
             deposits from any supported chain.
           </p>
         </div>
-        <a href="https://demo.uniport.dev" className="primary-action">
-          Open demo
-        </a>
+        <div className="cta-panel">
+          <div>
+            <span>Accept from</span>
+            <strong>20+ chains</strong>
+          </div>
+          <div>
+            <span>Settle to</span>
+            <strong>Your home chain</strong>
+          </div>
+          <a href="https://demo.uniport.dev" className="primary-action">
+            Open demo
+          </a>
+        </div>
       </section>
 
       <footer className="footer">
