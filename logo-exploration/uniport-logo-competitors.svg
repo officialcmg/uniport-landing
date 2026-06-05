@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" fill="#f4f6f1"/>
+
+  <g transform="translate(44 42)">
+    <rect width="270" height="286" rx="24" fill="#fbfaf6" stroke="#e3e5dd"/>
+    <g transform="translate(66 54)">
+      <rect x="0" y="0" width="36" height="146" rx="18" fill="none" stroke="#073f28" stroke-width="18"/>
+      <rect x="104" y="0" width="36" height="146" rx="18" fill="none" stroke="#073f28" stroke-width="18"/>
+      <path d="M36 73 C56 73 58 48 78 48 C103 48 103 73 104 73" stroke="#073f28" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <g transform="translate(354 42)">
+    <rect width="270" height="286" rx="24" fill="#fbfaf6" stroke="#e3e5dd"/>
+    <g transform="translate(70 54)">
+      <rect x="0" y="0" width="34" height="148" rx="17" fill="none" stroke="#073f28" stroke-width="18"/>
+      <rect x="96" y="0" width="34" height="148" rx="17" fill="none" stroke="#073f28" stroke-width="18"/>
+      <path d="M34 105 C54 105 54 42 76 42 C96 42 96 105 96 105" stroke="#073f28" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <g transform="translate(664 42)">
+    <rect width="270" height="286" rx="24" fill="#fbfaf6" stroke="#e3e5dd"/>
+    <g transform="translate(70 54)">
+      <rect x="0" y="4" width="36" height="144" rx="18" fill="none" stroke="#073f28" stroke-width="18"/>
+      <rect x="94" y="4" width="36" height="144" rx="18" fill="none" stroke="#073f28" stroke-width="18"/>
+      <path d="M36 42 C58 42 58 116 80 116 C94 116 94 96 94 96" stroke="#073f28" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <g transform="translate(974 42)">
+    <rect width="270" height="286" rx="24" fill="#fbfaf6" stroke="#e3e5dd"/>
+    <g transform="translate(68 56)">
+      <path d="M18 0 V145" stroke="#073f28" stroke-width="18" stroke-linecap="round"/>
+      <path d="M116 0 V145" stroke="#073f28" stroke-width="18" stroke-linecap="round"/>
+      <path d="M18 36 C48 36 44 110 78 110 C110 110 86 36 116 36" stroke="#073f28" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="18" cy="0" r="9" fill="#073f28"/>
+      <circle cx="116" cy="145" r="9" fill="#073f28"/>
+    </g>
+  </g>
+
+  <g transform="translate(44 370)">
+    <rect width="270" height="286" rx="24" fill="#fbfaf6" stroke="#e3e5dd"/>
+    <g transform="translate(68 56)">
+      <rect x="0" y="0" width="34" height="146" rx="17" fill="none" stroke="#073f28" stroke-width="18"/>
+      <rect x="102" y="0" width="34" height="146" rx="17" fill="none" stroke="#073f28" stroke-width="18"/>
+      <path d="M34 38 H60 C82 38 72 108 102 108" stroke="#073f28" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <g transform="translate(354 370)">
+    <rect width="270" height="286" rx="24" fill="#fbfaf6" stroke="#e3e5dd"/>
+    <g transform="translate(70 52)">
+      <rect x="0" y="10" width="34" height="148" rx="17" fill="none" stroke="#073f28" stroke-width="18"/>
+      <rect x="96" y="0" width="34" height="148" rx="17" fill="none" stroke="#073f28" stroke-width="18"/>
+      <path d="M34 118 C58 118 58 70 76 70 C96 70 78 32 96 32" stroke="#073f28" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <g transform="translate(664 370)">
+    <rect width="270" height="286" rx="24" fill="#fbfaf6" stroke="#e3e5dd"/>
+    <g transform="translate(70 58)">
+      <rect x="0" y="0" width="34" height="140" rx="17" fill="none" stroke="#073f28" stroke-width="18"/>
+      <rect x="96" y="0" width="34" height="140" rx="17" fill="none" stroke="#073f28" stroke-width="18"/>
+      <path d="M34 48 C52 48 54 76 66 76 C82 76 80 48 96 48" stroke="#073f28" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M34 100 C54 100 58 118 76 118 C88 118 88 100 96 100" stroke="#073f28" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <g transform="translate(974 370)">
+    <rect width="270" height="286" rx="24" fill="#fbfaf6" stroke="#e3e5dd"/>
+    <g transform="translate(70 54)">
+      <rect x="0" y="0" width="34" height="148" rx="17" fill="none" stroke="#073f28" stroke-width="18"/>
+      <rect x="98" y="0" width="34" height="148" rx="17" fill="none" stroke="#073f28" stroke-width="18"/>
+      <path d="M34 104 C56 104 54 30 78 30 C98 30 98 72 98 72" stroke="#073f28" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>
