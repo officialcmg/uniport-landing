@@ -1,0 +1,86 @@
+/* Landing page sections (ported from the design artboard Main.dc.html). */
+@layer components {
+.h-hero{position:relative;padding:96px 0 0;overflow:hidden}
+.h-hero-top{display:flex;flex-direction:column;gap:20px;max-width:1120px}
+.h-hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;margin-top:48px;align-items:start}
+.h-hero-copy{display:flex;flex-direction:column;gap:28px;padding-top:4px}
+.h-obj{position:relative}
+.h-obj-code{position:relative;width:100%;z-index:1;box-shadow:var(--shadow-popover)}
+.h-obj-code pre{font-size:14px;line-height:24px;padding:20px 0}
+.h-obj-halo{left:50%;top:22%;width:820px;height:820px;opacity:.6}
+.u-ln-btn{appearance:none;border:0;border-left:2px solid transparent;background:transparent;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;margin:0}
+.u-ln-btn:hover{background:#ffffff08}
+.u-ln-btn.u-ln-hl{background:#ff6a2a17;border-left-color:var(--brand)}
+.h-trust{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;line-height:20px;color:var(--ink-300)}
+.h-trust span{display:inline-flex;align-items:center;gap:6px}
+.h-strip{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;align-items:center;padding:36px 0;border-top:1px solid var(--line-100);border-bottom:1px solid var(--line-100);margin-top:64px}
+.h-logos{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.h-logos .u-logo-24{width:28px;height:28px}
+.h-strip{display:grid;grid-template-columns:240px minmax(0,1fr);gap:40px;align-items:center;margin-top:88px;padding:28px 0;border-top:1px solid var(--line-100);border-bottom:1px solid var(--line-100)}
+.h-why{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px;align-items:start}
+.h-why p+p{margin-top:16px}
+.h-cmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.h-cmp>div{padding:28px}
+.h-cmp>div+div{border-left:1px solid var(--line-100)}
+.h-cmp ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.h-cmp li{display:flex;gap:10px;font-size:14px;line-height:22px}
+.h-cmp li .u-i{margin-top:3px}
+.h-feat{display:flex;flex-direction:column;gap:10px}
+.h-feat .u-step-n{margin-bottom:12px}
+.h-int{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px;align-items:start}
+.h-int-steps{list-style:none;padding:0;display:flex;flex-direction:column;gap:28px;margin-top:40px}
+.h-int-steps li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:16px}
+.h-n{width:28px;height:28px;border-radius:999px;border:1px solid var(--line-200);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:var(--ink-200)}
+.h-uses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line-100);border-left:1px solid var(--line-100)}
+.h-uses>div{padding:28px;border-right:1px solid var(--line-100);border-bottom:1px solid var(--line-100);display:flex;flex-direction:column;gap:8px;min-height:180px}
+.h-uses .u-i{width:20px;height:20px;color:var(--ink-200);margin-bottom:16px}
+.h-uses .h-lbl{margin-top:auto;padding-top:16px;font-family:var(--font-mono);font-size:12px;color:var(--ink-300)}
+.h-uses .h-lbl b{font-weight:400;color:var(--syn-s)}
+.h-how{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:48px;list-style:none;padding:0}
+.h-how li{display:flex;flex-direction:column;gap:6px}
+.h-how .h-mini{height:120px;margin-bottom:12px;border-radius:12px;background:var(--surface-200);border:1px solid var(--line-100);box-shadow:var(--shadow-raised);padding:20px 16px 16px;display:flex;flex-direction:column;justify-content:flex-start;gap:8px}
+.h-chains{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:48px}
+.h-chains .u-chip{width:100%;height:40px;font-size:14px}
+.h-chains .u-chip img{width:22px;height:22px}
+.h-tokens{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:32px;align-items:center;margin-top:24px;padding:24px 28px}
+.h-faq{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:64px;align-items:start}
+.h-close{position:relative;overflow:hidden;border:1px solid var(--line-100);border-radius:24px;background:var(--surface-200);box-shadow:var(--shadow-raised);padding:72px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:end}
+.h-stat{display:flex;flex-direction:column;gap:4px;padding:20px 0;border-top:1px solid var(--line-100)}
+.h-foot{display:grid;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));gap:32px;padding:64px 0 48px;border-top:1px solid var(--line-100);margin-top:128px}
+.h-foot h4{font-size:13px;line-height:18px;font-weight:500;color:var(--ink-100);margin-bottom:12px}
+.h-foot ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--ink-200)}
+.h-foot a:hover{color:var(--ink-100)}
+@media (max-width:1024px){
+.h-how{grid-template-columns:repeat(2,minmax(0,1fr))}
+.h-hero-grid,.h-why,.h-int,.h-faq,.h-close{grid-template-columns:minmax(0,1fr)}
+.h-chains{grid-template-columns:repeat(4,minmax(0,1fr))}
+.h-tokens{grid-template-columns:minmax(0,1fr);gap:12px}
+.h-obj{min-height:0;display:flex;flex-direction:column;gap:16px}
+.h-obj-code{width:100%}
+}
+@media (max-width:760px){
+.h-hero{padding-top:48px}
+.h-strip{grid-template-columns:minmax(0,1fr);gap:16px;margin-top:56px;padding:24px 0}
+.h-logos{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:12px 8px;justify-items:center}
+.h-obj-code pre{font-size:12px;line-height:20px;padding:16px 0}
+.h-hero-grid{margin-top:28px;gap:40px}
+.h-obj-halo{left:-20%;top:30%;width:600px;height:600px}
+.h-strip{grid-template-columns:minmax(0,1fr);gap:20px;margin-top:64px;padding:28px 0}
+.h-cmp{grid-template-columns:minmax(0,1fr)}
+.h-cmp>div+div{border-left:0;border-top:1px solid var(--line-100)}
+.h-cmp>div{padding:20px}
+.h-uses{grid-template-columns:minmax(0,1fr)}
+.h-chains{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.h-tokens{padding:20px}
+.h-uses>div{min-height:0;padding:20px}
+.h-uses .u-i{margin-bottom:8px}
+.h-how{grid-template-columns:minmax(0,1fr);gap:40px}
+.h-trust{display:none}
+
+.h-feat .u-step-n{margin-bottom:16px}
+.h-close{padding:32px 20px;border-radius:16px}
+.h-foot{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:64px}
+.h-foot>div:first-child{grid-column:1/-1}
+.h-why,.h-int,.h-faq{gap:32px}
+}
+}

@@ -1,0 +1,39 @@
+export const meta = {
+  lede: "What happens between your user pressing the button and your app receiving funds.",
+}
+
+## The four steps
+
+<Steps
+  current={4}
+  items={[
+    { title: "Set destination", body: "Your app chooses the token, chain, and recipient." },
+    { title: "User picks source", body: "The payer chooses where their assets are coming from." },
+    { title: "Quote returns", body: "Uniport gives an exact amount and deposit instructions." },
+    { title: "App receives", body: "Funds settle where the app asked to receive them." },
+  ]}
+/>
+
+## The quote
+
+When you set `amount`, the modal asks for exactly that much of your destination token, and the payer is told exactly what to send. The payer’s amount is rounded up only when the increase is 0.25% or less.
+
+Without `amount`, the payer enters how much they want to send and your app receives the quoted output.
+
+## Deposit and settlement
+
+The modal shows one deposit address, with a QR code and a copy button. The payer sends exactly the quoted amount from their own wallet. Uniport routes the funds and settles them to your `recipient` on the destination chain, while the modal tracks the payment’s status.
+
+When the payment completes, the modal links to the transaction on a block explorer and the button calls `onSuccess`.
+
+## Where the backend fits
+
+<Code
+  lang="text"
+  lineNumbers={false}
+  code={`UniportButton → UniportModal → uniport-sdk core
+    → Uniport hosted backend (quote, deposit, status)
+        → NEAR Intents 1Click API`}
+/>
+
+The backend holds the 1Click API key, so nothing secret ships in your client.

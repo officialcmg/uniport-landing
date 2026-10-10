@@ -1,0 +1,35 @@
+export const meta = {
+  lede: "Three optional props tell your app what happened in the deposit modal.",
+}
+
+## Usage
+
+<Code
+  file="DepositAction.tsx"
+  code={`import { UniportButton } from "uniport-sdk";
+
+export function DepositAction() {
+  return (
+    <UniportButton
+      recipient="0x..."
+      destinationToken="optimismUSDC"
+      label="Deposit"
+      onSuccess={(result) => console.log(result.txHash)}
+      onError={(error) => console.error(error.message)}
+      onOpenChange={(open) => console.log(open)}
+    />
+  );
+}`}
+/>
+
+## onSuccess
+
+Called when the payment completes. It receives `{ txHash: string; amount: string }`.
+
+## onError
+
+Called when the payment fails. It receives an `Error`. Failures from Uniport’s backend arrive as a `UniportError` with a `code`; see [Errors](/docs/errors).
+
+## onOpenChange
+
+Called with `true` when the modal opens and `false` when it closes.

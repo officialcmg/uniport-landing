@@ -1,0 +1,38 @@
+// The 24 source chains users can pay from (chains with destination tokens in uniport-sdk).
+export const CHAINS = [
+  { name: "Ethereum", icon: "ethereum" },
+  { name: "Base", icon: "base" },
+  { name: "Optimism", icon: "optimism" },
+  { name: "Arbitrum", icon: "arbitrum" },
+  { name: "Polygon", icon: "polygon" },
+  { name: "Solana", icon: "solana" },
+  { name: "Sui", icon: "sui" },
+  { name: "NEAR", icon: "near" },
+  { name: "Bitcoin", icon: "bitcoin" },
+  { name: "Avalanche", icon: "avalanche" },
+  { name: "BNB Chain", icon: "bnb" },
+  { name: "Aptos", icon: "aptos" },
+  { name: "TON", icon: "ton" },
+  { name: "Tron", icon: "tron" },
+  { name: "Stellar", icon: "stellar" },
+  { name: "Cardano", icon: "cardano" },
+  { name: "XRP Ledger", icon: "xrp" },
+  { name: "Dogecoin", icon: "dogecoin" },
+  { name: "Litecoin", icon: "litecoin" },
+  { name: "Bitcoin Cash", icon: "bitcoincash" },
+  { name: "Starknet", icon: "starknet" },
+  { name: "Berachain", icon: "berachain" },
+  { name: "Zcash", icon: "zcash" },
+  { name: "Scroll", icon: "scroll" },
+] as const;
+
+export const chainIcon = (icon: string) => `/chains/${icon}.png`;
+
+export const LINKS = {
+  demo: "https://demo.uniport.dev",
+  github: "https://github.com/officialcmg/uniport",
+  npm: "https://www.npmjs.com/package/uniport-sdk",
+  docs: "/docs/quickstart",
+  props: "/docs/uniport-button",
+  tokens: "/docs/chains-and-tokens",
+} as const;

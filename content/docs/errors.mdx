@@ -1,0 +1,23 @@
+export const meta = {
+  lede: "When a payment fails, onError receives an Error. Failures from Uniport’s backend are normalized into a UniportError.",
+}
+
+## UniportError
+
+A `UniportError` has a `message`, a stable `code`, and optionally `details` and the HTTP `status`. Timeouts, quote failures, deposit submission failures and status failures are all normalized before they reach your UI.
+
+## Codes
+
+<DocTable
+  head={["code", "When"]}
+  rows={[
+    [<M>VALIDATION_ERROR</M>, "A request was missing or had an invalid field."],
+    [<M>QUOTE_FAILED</M>, "No quote could be produced for this route or amount."],
+    [<M>DEPOSIT_SUBMISSION_FAILED</M>, "The deposit couldn’t be submitted for tracking."],
+    [<M>STATUS_CHECK_FAILED</M>, "The payment’s status couldn’t be fetched."],
+    [<M>REQUEST_TIMEOUT</M>, "The backend didn’t answer within 20 seconds."],
+    [<M>NETWORK_ERROR</M>, "The backend couldn’t be reached."],
+    [<M>INTERNAL_ERROR</M>, "The backend failed unexpectedly."],
+    [<M>UNKNOWN_ERROR</M>, "Anything else."],
+  ]}
+/>

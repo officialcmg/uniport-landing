@@ -1,0 +1,19 @@
+export const meta = {
+  lede: "Your users can pay from 24 chains. Your app can receive any of 63 destination tokens.",
+}
+
+## Naming
+
+Destination tokens are named `{chain}{SYMBOL}`: `optimismUSDC`, `arbitrumUSDC`, `solanaSOL`, `bitcoinBTC`. Legacy short aliases such as `arbUSDC` and `ethUSDC` still work, but the canonical names are the ones to ship against.
+
+## Source chains
+
+Ethereum, Base, Optimism, Arbitrum, Polygon, Solana, Sui, NEAR, Bitcoin, Avalanche, BNB Chain, Aptos, TON, Tron, Stellar, Cardano, XRP Ledger, Dogecoin, Litecoin, Bitcoin Cash, Starknet, Berachain, Zcash and Scroll.
+
+<H2 id="tokens">Destination tokens</H2>
+
+<TokenTable initial="all" limit={100} />
+
+## Display amounts
+
+Cross-chain quotes often land on long decimals. The modal rounds the amounts it displays to 6 significant digits so they stay readable. The actual quote, deposit and settlement amounts are never changed.

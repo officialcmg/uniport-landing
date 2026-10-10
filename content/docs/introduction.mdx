@@ -1,0 +1,33 @@
+export const meta = {
+  lede: "Uniport is a chain-abstraction SDK. Your app receives funds on its home chain while users pay from whichever chain they already hold assets on.",
+  badges: ["uniport-sdk 0.0.7", "MIT", "React 18+"],
+}
+
+## What you get
+
+<Checklist items={[
+  <>One React component, <C>UniportButton</C>, that opens a complete deposit flow.</>,
+  "No API key. The SDK talks to Uniport’s hosted backend, which keeps keys server-side.",
+  "24 source chains your users can pay from, and 63 destination tokens your app can receive.",
+  "An exact quote and one deposit address for every payment, with refunds on the source chain.",
+]} />
+
+## The whole integration
+
+<DepositSnippet />
+
+Install it with `npm i uniport-sdk`, then follow the [quickstart](/docs/quickstart). It takes about three minutes.
+
+## How it’s built
+
+Uniport routes payments through NEAR Intents (the 1Click API). The SDK calls Uniport’s hosted backend, which returns quotes, deposit addresses and payment status. Your client never holds an API key.
+
+## Next steps
+
+<NextSteps
+  items={[
+    { title: "Quickstart", body: "Install, add the button, set three props.", href: "/docs/quickstart" },
+    { title: "How it works", body: "From a click to a settled deposit.", href: "/docs/how-it-works" },
+    { title: "Try the demo", body: "Configure the button and pay for real.", href: "https://demo.uniport.dev" },
+  ]}
+/>

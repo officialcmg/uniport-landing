@@ -1,0 +1,27 @@
+export const meta = {
+  lede: "Answers to what developers ask first.",
+}
+
+## Do I need an API key?
+
+No. The SDK calls Uniport’s hosted backend, which keeps the routing API key server-side. Nothing secret ships in your client.
+
+## Where do funds settle?
+
+To the `recipient` address you pass, on the chain and token named by `destinationToken`. With `optimismUSDC`, your app receives USDC on Optimism.
+
+## What happens if a payment fails?
+
+Funds go back to the payer’s refund address on the chain they paid from. See [Refunds](/docs/refunds).
+
+## Which chains need a memo?
+
+Stellar. The modal shows the memo right next to the deposit address. See [Memo chains](/docs/memo-chains).
+
+## What does Uniport cost?
+
+Uniport takes 0.4% of each deposit. That’s the whole fee.
+
+## Which frameworks does it work with?
+
+Any React 18 or later app: Next.js, Vite, Remix and others.

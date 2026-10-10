@@ -1,0 +1,33 @@
+export const meta = {
+  lede: "A button that opens Uniport’s deposit modal. Render it anywhere in a React tree. It brings its own modal and styles.",
+  mono: true,
+  wide: true,
+}
+
+## Usage
+
+<DepositSnippet icon={false} />
+
+## Props
+
+Only `recipient` and `destinationToken` are required.
+
+<ButtonPropsTable />
+
+<H2 id="amount">Fixed amounts</H2>
+
+With `amount`, the modal asks for exactly that much of your destination token. The payer’s quote is rounded up only when the increase is 0.25% or less.
+
+Without it, the payer enters how much they send and your app receives the quoted output.
+
+<H2 id="refunds">Refund address</H2>
+
+If a payment can’t complete, funds go back to the payer’s refund address on the chain they paid from. The payer enters it in the modal, or you prefill it with `refundAddress`.
+
+<Callout title="EVM chains only:">a blank refund address defaults to Uniport’s address, <C>uniport.eth</C>. On Solana, Sui, Bitcoin and other non-EVM chains the payer has to enter one.</Callout>
+
+<H2 id="tokens">Destination tokens</H2>
+
+Pass any of these as `destinationToken`. Stablecoins are the common choice.
+
+<TokenTable />

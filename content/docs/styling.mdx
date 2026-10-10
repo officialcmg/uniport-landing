@@ -1,0 +1,22 @@
+export const meta = {
+  lede: "The button and its modal bring their own styles. Four props adjust them to your app.",
+}
+
+## Theme
+
+`theme` sets the button and the modal to `"light"` (the default) or `"dark"`. Use `"dark"` on dark backgrounds.
+
+## Variant
+
+<DocTable
+  head={["variant", "Looks like"]}
+  rows={[
+    [<M>"default"</M>, "A solid button with comfortable padding. The default."],
+    [<M>"compact"</M>, "The same button, smaller, for dense toolbars and rows."],
+    [<M>"outline"</M>, "A transparent button with a border."],
+  ]}
+/>
+
+## className and disabled
+
+`className` is added to the button so you can apply your own styles. `disabled` turns the button off, for example until your form has a recipient.

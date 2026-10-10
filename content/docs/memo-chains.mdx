@@ -1,0 +1,15 @@
+export const meta = {
+  lede: "Some chains need a memo next to the deposit address. Sending without it can make a deposit unrecoverable.",
+}
+
+## Stellar
+
+Stellar is currently the only chain that needs a memo. The modal requests the right deposit mode automatically and shows the memo prominently next to the deposit address, with its own copy button.
+
+## Trustlines
+
+Non-native Stellar assets, such as Stellar USDC, need the receiving address to have a trustline for that asset, or funds can’t be delivered. The modal warns about this when a payer enters a refund address for a non-XLM Stellar token.
+
+## TON and XRP
+
+The 1Click API’s documentation suggests TON and XRP may also need memos. Tested against the live API, they don’t for the chains Uniport supports today. Only Stellar does.

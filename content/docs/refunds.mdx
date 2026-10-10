@@ -1,0 +1,19 @@
+export const meta = {
+  lede: "If a payment can’t complete, funds go back to a refund address on the chain the payer paid from.",
+}
+
+## The refund address
+
+The payer enters a refund address in the modal, on the chain they’re paying from. You can prefill it with the `refundAddress` prop.
+
+## EVM chains
+
+On EVM source chains, a blank refund address defaults to Uniport’s own address, resolved from `uniport.eth` (with a fixed fallback if resolution fails), instead of blocking the payment. This exists because the underlying 1Click API needs an explicit refund address and can’t yet refund to the depositing wallet.
+
+## Other chains
+
+On Sui, Solana, Bitcoin and other non-EVM chains the payer must enter a refund address. There is no Uniport-controlled address on those chains to fall back to.
+
+## Fixed amounts
+
+<Callout tone="warn" title="With amount set:">rounded surplus and failed-swap refunds are credited to Uniport’s configured Intents account.</Callout>
