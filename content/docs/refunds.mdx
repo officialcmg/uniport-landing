@@ -16,4 +16,6 @@ On Sui, Solana, Bitcoin and other non-EVM chains the payer must enter a refund a
 
 ## Fixed amounts
 
-<Callout tone="warn" title="With amount set:">rounded surplus and failed-swap refunds are credited to Uniport’s configured Intents account.</Callout>
+When you set `amount`, the modal asks for exactly that much to arrive and doesn’t ask the payer for a refund address.
+
+<Callout tone="warn" title="With amount set:">failed-swap refunds go to Uniport’s NEAR Intents account, not back to the payer. The payer contacts Uniport to get them back. Uniport also keeps the rounding surplus: the amount the payer sends is rounded up by at most 0.25%.</Callout>

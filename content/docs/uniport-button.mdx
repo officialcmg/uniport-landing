@@ -22,7 +22,7 @@ Without it, the payer enters how much they send and your app receives the quoted
 
 <H2 id="refunds">Refund address</H2>
 
-If a payment can’t complete, funds go back to the payer’s refund address on the chain they paid from. The payer enters it in the modal, or you prefill it with `refundAddress`.
+If a payment can’t complete, funds go back to the payer’s refund address on the chain they paid from. The payer enters it in the modal, or you prefill it with `refundAddress`. With a fixed `amount` there’s no refund address: refunds go to Uniport’s NEAR Intents account. See [Refunds](/docs/refunds#fixed-amounts).
 
 <Callout title="EVM chains only:">a blank refund address defaults to Uniport’s address, <C>uniport.eth</C>. On Solana, Sui, Bitcoin and other non-EVM chains the payer has to enter one.</Callout>
 

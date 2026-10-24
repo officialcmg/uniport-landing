@@ -54,9 +54,9 @@ const USES: { icon: IconName; title: string; body: React.ReactNode; label: strin
 const FAQ = [
   ["Do I need an API key?", "No. The SDK calls Uniport’s hosted backend, which keeps the routing API key server-side. Nothing secret ships in your client."],
   ["Where do funds settle?", "To the recipient address you pass, on the chain and token named by destinationToken. With optimismUSDC, your app receives USDC on Optimism."],
-  ["What happens if a payment fails?", "Funds go back to the payer’s refund address on the chain they paid from. The payer enters it in the modal, or you prefill it with the refundAddress prop."],
+  ["What happens if a payment fails?", "Funds go back to the payer’s refund address on the chain they paid from. The payer enters it in the modal, or you prefill it with the refundAddress prop. With a fixed amount, refunds go to Uniport’s NEAR Intents account instead, and the payer contacts Uniport to get them back."],
   ["Which chains need a memo?", "Stellar. The modal shows the memo right next to the deposit address, with its own copy button."],
-  ["What does Uniport cost?", "Uniport takes 0.4% of each deposit. That’s the whole fee."],
+  ["What does Uniport cost?", "Uniport takes 0.4% of each deposit. With a fixed amount, Uniport also rounds what the payer sends up to a friendlier number, by at most 0.25%, and keeps the difference."],
 ];
 
 function Eyebrow({ children }: { children: React.ReactNode }) {

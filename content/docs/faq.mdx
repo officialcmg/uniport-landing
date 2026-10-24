@@ -12,7 +12,7 @@ To the `recipient` address you pass, on the chain and token named by `destinatio
 
 ## What happens if a payment fails?
 
-Funds go back to the payer’s refund address on the chain they paid from. See [Refunds](/docs/refunds).
+Funds go back to the payer’s refund address on the chain they paid from. With a fixed `amount`, refunds go to Uniport’s NEAR Intents account instead, and the payer contacts Uniport to get them back. See [Refunds](/docs/refunds).
 
 ## Which chains need a memo?
 
@@ -20,7 +20,7 @@ Stellar. The modal shows the memo right next to the deposit address. See [Memo c
 
 ## What does Uniport cost?
 
-Uniport takes 0.4% of each deposit. That’s the whole fee.
+Uniport takes 0.4% of each deposit. With a fixed `amount`, Uniport also rounds what the payer sends up to a friendlier number, by at most 0.25%, and keeps the difference.
 
 ## Which frameworks does it work with?
 
