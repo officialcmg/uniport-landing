@@ -103,7 +103,7 @@ export default function LandingPage() {
             </div>
             <div className="h-strip">
               <p className="u-small">
-                <span style={{ color: "var(--ink-100)", fontWeight: 500 }}>Pay from 24 chains.</span> Settle to the one your
+                <span style={{ color: "var(--ink-100)", fontWeight: 500 }}>Pay from 32 chains.</span> Settle to the one your
                 app lives on.
               </p>
               <div className="h-logos">
@@ -375,7 +375,7 @@ export default function LandingPage() {
             </div>
             <div className="u-card h-tokens">
               <p className="u-amount">
-                63<small>destination tokens</small>
+                82<small>destination tokens</small>
               </p>
               <p className="u-small">
                 Name any of them as <span className="u-inline-code">destinationToken</span>:{" "}
@@ -431,7 +431,7 @@ export default function LandingPage() {
               <div style={{ position: "relative" }}>
                 <div className="h-stat">
                   <span className="u-caption">Accept from</span>
-                  <span className="u-h2 u-num">24 chains</span>
+                  <span className="u-h2 u-num">32 chains</span>
                 </div>
                 <div className="h-stat">
                   <span className="u-caption">Settle to</span>

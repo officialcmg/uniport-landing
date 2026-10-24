@@ -1,4 +1,4 @@
-// The 24 source chains users can pay from (chains with destination tokens in uniport-sdk).
+// The 32 source chains users can pay from (chains with destination tokens in uniport-sdk).
 export const CHAINS = [
   { name: "Ethereum", icon: "ethereum" },
   { name: "Base", icon: "base" },
@@ -24,6 +24,14 @@ export const CHAINS = [
   { name: "Berachain", icon: "berachain" },
   { name: "Zcash", icon: "zcash" },
   { name: "Scroll", icon: "scroll" },
+  { name: "Gnosis", icon: "gnosis" },
+  { name: "Monad", icon: "monad" },
+  { name: "Hyperliquid", icon: "hyperliquid" },
+  { name: "Plasma", icon: "plasma" },
+  { name: "Robinhood Chain", icon: "robinhood" },
+  { name: "X Layer", icon: "xlayer" },
+  { name: "Dash", icon: "dash" },
+  { name: "ADI Chain", icon: "adi" },
 ] as const;
 
 export const chainIcon = (icon: string) => `/chains/${icon}.png`;
