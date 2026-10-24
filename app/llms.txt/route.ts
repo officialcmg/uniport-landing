@@ -25,7 +25,7 @@ export async function GET() {
 
   const text = `# Uniport
 
-> Uniport is a chain-abstraction SDK. Apps receive funds on their home chain while users pay from any of 24 chains. One React component, \`UniportButton\` from \`uniport-sdk\`; no API key.
+> Uniport is a chain-abstraction SDK. Apps receive funds on their home chain while users pay from any of 32 chains. One React component, \`UniportButton\` from \`uniport-sdk\`; no API key.
 
 The whole integration:
 
