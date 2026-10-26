@@ -20,7 +20,7 @@ export const DOC_PAGES: DocPage[] = [
   { slug: "uniport-button", title: "UniportButton", nav: "Props", group: "UniportButton", description: "Every prop the button accepts, and every destination token." },
   { slug: "callbacks", title: "Callbacks", group: "UniportButton", description: "onSuccess, onError and onOpenChange." },
   { slug: "styling", title: "Styling", group: "UniportButton", description: "Theme, variant and className." },
-  { slug: "chains-and-tokens", title: "Chains and tokens", group: "Reference", description: "All 32 source chains and 82 destination tokens." },
+  { slug: "chains-and-tokens", title: "Chains and tokens", group: "Reference", description: "All 32 source chains and 97 destination tokens." },
   { slug: "refunds", title: "Refunds", group: "Reference", description: "Where funds go when a payment can’t complete." },
   { slug: "memo-chains", title: "Memo chains", group: "Reference", description: "Chains that need a memo alongside the deposit address." },
   { slug: "errors", title: "Errors", group: "Reference", description: "UniportError and its codes." },
