@@ -2,6 +2,13 @@ export const meta = {
   lede: "What changed in each uniport-sdk release.",
 }
 
+## 0.0.11
+
+October 27, 2026
+
+- When your app sets `amount`, the payer can no longer change it in the modal. Before, a payer could edit a checkout amount and pay less.
+- `onSuccess` runs in the payer's browser. Before granting goods or access, confirm on your server that the recipient received the amount.
+
 ## 0.0.10
 
 October 27, 2026
