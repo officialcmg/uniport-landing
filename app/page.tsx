@@ -375,7 +375,7 @@ export default function LandingPage() {
             </div>
             <div className="u-card h-tokens">
               <p className="u-amount">
-                82<small>destination tokens</small>
+                97<small>destination tokens</small>
               </p>
               <p className="u-small">
                 Name any of them as <span className="u-inline-code">destinationToken</span>:{" "}
