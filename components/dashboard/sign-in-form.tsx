@@ -20,6 +20,8 @@ export function SignInForm({ github = false }: { github?: boolean }) {
   async function sendCode() {
     setBusy(true);
     setError(null);
+    // A new code is on its way: digits typed for the old one must not count towards it.
+    setCode("");
     try {
       const { error: failure } = await authClient.emailOtp.sendVerificationOtp({ email, type: "sign-in" });
       if (failure) throw new Error(failure.message || "Could not send the code.");
@@ -67,6 +69,8 @@ export function SignInForm({ github = false }: { github?: boolean }) {
             required
             autoFocus
             value={email}
+            // Locked while sending, so the code goes to the address shown on the next step.
+            readOnly={busy}
             onChange={(event) => setEmail(event.target.value)}
           />
           <Button type="submit" variant="primary" block disabled={busy || !email}>
@@ -95,6 +99,7 @@ export function SignInForm({ github = false }: { github?: boolean }) {
             onComplete={(next) => void verify(next)}
             disabled={busy}
             invalid={Boolean(error)}
+            errorId="sign-in-error"
           />
           <Button type="submit" variant="primary" block disabled={busy || code.length < 6}>
             {busy ? "Checking…" : "Sign in"}
@@ -137,7 +142,7 @@ export function SignInForm({ github = false }: { github?: boolean }) {
       ) : null}
 
       {error ? (
-        <p role="alert" className="text-sm text-destructive">
+        <p id="sign-in-error" role="alert" className="text-sm text-destructive">
           {error}
         </p>
       ) : null}

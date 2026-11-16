@@ -17,6 +17,7 @@ export function CodeInput({
   onComplete,
   disabled,
   invalid,
+  errorId,
 }: {
   id: string;
   value: string;
@@ -24,6 +25,8 @@ export function CodeInput({
   onComplete?: (value: string) => void;
   disabled?: boolean;
   invalid?: boolean;
+  /** The id of the element that holds the error message, when there is one. */
+  errorId?: string;
 }) {
   const [focused, setFocused] = useState(false);
   const active = Math.min(value.length, LENGTH - 1);
@@ -54,7 +57,7 @@ export function CodeInput({
         autoComplete="one-time-code"
         aria-label="6-digit sign-in code"
         aria-invalid={invalid || undefined}
-        maxLength={LENGTH}
+        aria-describedby={invalid ? errorId : undefined}
         required
         autoFocus
         disabled={disabled}

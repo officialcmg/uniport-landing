@@ -16,7 +16,11 @@ When a payment completes, `onSuccess` gives your page the payment’s `depositAd
   onSuccess={(result) =>
     fetch("/api/orders/confirm", {
       method: "POST",
-      body: JSON.stringify({ orderId, depositAddress: result.depositAddress }),
+      body: JSON.stringify({
+        orderId,
+        depositAddress: result.depositAddress,
+        depositMemo: result.depositMemo,
+      }),
     })
   }
 />`}
@@ -29,9 +33,12 @@ Call `GET https://api.uniport.dev/v1/payments/{depositAddress}` from your server
 <Code
   file="confirm.ts"
   lang="ts"
-  code={`const res = await fetch(
+  code={`const url = new URL(
   \`https://api.uniport.dev/v1/payments/\${encodeURIComponent(depositAddress)}\`
 );
+if (depositMemo) url.searchParams.set("memo", depositMemo);
+
+const res = await fetch(url);
 if (!res.ok) return "try-again";
 const payment = await res.json();
 
@@ -44,10 +51,12 @@ const paymentKey = \`\${payment.depositAddress}:\${payment.depositMemo ?? ""}\`;
 
 const paid =
   payment.appId === process.env.UNIPORT_APP_ID &&
+  // EVM (0x) addresses only. On other chains, such as Solana, compare exactly.
   payment.recipient.toLowerCase() === MY_WALLET.toLowerCase() &&
   payment.destinationAsset === EXPECTED_ASSET &&
   BigInt(payment.amountOut) >= EXPECTED_AMOUNT &&
-  !(await alreadyUsed(paymentKey));`}
+  // Must be atomic: for example an insert into a column with a unique constraint.
+  (await claim(paymentKey, orderId));`}
 />
 
 Check all of these:
@@ -60,7 +69,7 @@ Check all of these:
     [<M>recipient</M>, "It is your address."],
     [<M>destinationAsset</M>, "It is the token you expected, on the chain you expected."],
     [<M>amountOut</M>, "It is at least the order amount. It is in the token’s smallest units: 25 USDC is 25000000."],
-    [<M>depositAddress</M>, <>You have not already accepted it for another order. Store each one you accept, with its <C>depositMemo</C>. Take both from the response: the same address can be written in more than one way, and the response always gives it in one form.</>],
+    [<M>depositAddress</M>, <>You have not already accepted it for another order. Record each one you accept, with its <C>depositMemo</C>, in a way that cannot succeed twice: for example a unique constraint, written in the same transaction that marks the order paid. A check followed by a separate write lets two requests at once both pass. Take both from the response: the same address can be written in more than one way, and the response always gives it in one form.</>],
   ]}
 />
 

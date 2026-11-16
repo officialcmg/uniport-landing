@@ -133,6 +133,8 @@ export async function deleteAppAction(_previous: FormState, form: FormData): Pro
 }
 
 export async function signOutAction(): Promise<void> {
-  await auth.signOut();
+  const { error } = await auth.signOut();
+  // Don't send the user to the home page looking signed out when they are not.
+  if (error) throw new Error("Could not sign out. Please try again.");
   redirect("/");
 }
