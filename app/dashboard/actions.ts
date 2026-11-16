@@ -12,6 +12,7 @@ import {
   setAllowedWebsites,
   setRecipients,
 } from "@/lib/dashboard/apps";
+import { UserError } from "@/lib/dashboard/errors";
 import { parseAllowedOrigins, parseRecipients } from "@/lib/dashboard/origins";
 
 export type FormState = { error?: string; saved?: boolean };
@@ -25,14 +26,18 @@ async function requireUser() {
 }
 
 function appName(form: FormData): string {
-  const name = String(form.get("name") ?? "").trim();
-  if (!name) throw new Error("Give the app a name.");
-  if (name.length > 60) throw new Error("Keep the name under 60 characters.");
+  // Runs of spaces are collapsed, as the browser shows them, so the name can be typed back to confirm a delete.
+  const name = String(form.get("name") ?? "").replace(/\s+/g, " ").trim();
+  if (!name) throw new UserError("Give the app a name.");
+  if (name.length > 60) throw new UserError("Keep the name under 60 characters.");
   return name;
 }
 
 function message(error: unknown): string {
-  return error instanceof Error ? error.message : "Something went wrong. Please try again.";
+  if (error instanceof UserError) return error.message;
+  // Anything else is ours (database, configuration): log it, and don't show its text.
+  console.error("Dashboard action failed:", error);
+  return "Something went wrong on our side. Please try again.";
 }
 
 /** The app name sits in the top bar and the app header, which are layouts, so refresh those too. */
@@ -116,7 +121,7 @@ export async function deleteAppAction(_previous: FormState, form: FormData): Pro
     const app = await getApp(user.id, id);
     if (!app) return { error: GONE };
     // The browser checks this too; the check here is the one that counts.
-    if (String(form.get("confirm") ?? "").trim() !== app.name) {
+    if (String(form.get("confirm") ?? "").replace(/\s+/g, " ").trim() !== app.name.replace(/\s+/g, " ").trim()) {
       return { error: `Type "${app.name}" to confirm.` };
     }
     await deleteApp(user.id, id);

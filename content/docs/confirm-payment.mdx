@@ -30,17 +30,24 @@ Call `GET https://api.uniport.dev/v1/payments/{depositAddress}` from your server
   file="confirm.ts"
   lang="ts"
   code={`const res = await fetch(
-  \`https://api.uniport.dev/v1/payments/\${depositAddress}\`
+  \`https://api.uniport.dev/v1/payments/\${encodeURIComponent(depositAddress)}\`
 );
+if (!res.ok) return "try-again";
 const payment = await res.json();
 
+// Uniport couldn't read its record just now. Ask again shortly.
+if (payment.record === "unavailable") return "try-again";
+if (payment.status !== "SUCCESS" || payment.amountOut === null) return "not-paid";
+
+// Use the address and memo from the response, not the ones the browser sent.
+const paymentKey = \`\${payment.depositAddress}:\${payment.depositMemo ?? ""}\`;
+
 const paid =
-  payment.status === "SUCCESS" &&
   payment.appId === process.env.UNIPORT_APP_ID &&
   payment.recipient.toLowerCase() === MY_WALLET.toLowerCase() &&
   payment.destinationAsset === EXPECTED_ASSET &&
   BigInt(payment.amountOut) >= EXPECTED_AMOUNT &&
-  !(await alreadyUsed(depositAddress));`}
+  !(await alreadyUsed(paymentKey));`}
 />
 
 Check all of these:
@@ -53,9 +60,15 @@ Check all of these:
     [<M>recipient</M>, "It is your address."],
     [<M>destinationAsset</M>, "It is the token you expected, on the chain you expected."],
     [<M>amountOut</M>, "It is at least the order amount. It is in the token’s smallest units: 25 USDC is 25000000."],
-    [<M>depositAddress</M>, "You have not already accepted it for another order. Store each one you accept."],
+    [<M>depositAddress</M>, <>You have not already accepted it for another order. Store each one you accept, with its <C>depositMemo</C>. Take both from the response: the same address can be written in more than one way, and the response always gives it in one form.</>],
   ]}
 />
+
+A few details:
+
+- **`destinationAsset`** is the token’s NEAR Intents asset ID, not the name you pass to the button. Make one test payment and copy the value from the response.
+- **If you replace your App ID**, payments already under way still carry the old one. Accept both for a day or so.
+- **`record: "missing"`** means Uniport has no record of the payment, so it wasn’t made through your app.
 
 ## The response
 

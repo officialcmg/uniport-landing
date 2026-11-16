@@ -1,6 +1,7 @@
 import "server-only";
 import { db } from "@/lib/db";
 import { generateAppId } from "@/lib/app-id";
+import { UserError } from "./errors";
 
 // Every function here takes the signed-in user's id first and only ever
 // touches that user's apps: each query filters on owner_user_id.
@@ -99,25 +100,28 @@ export async function getApp(userId: string, appId: string): Promise<AppDetail |
   return rows[0] ? toDetail(rows[0]) : null;
 }
 
+const OWNED = `EXISTS (SELECT 1 FROM apps WHERE id = $1::uuid AND owner_user_id = $2 AND status = 'active')`;
+
 /** Creates an app with its first App ID. Returns the new app's id. */
 export async function createApp(userId: string, name: string, allowedOrigins: string[]): Promise<string> {
   const sql = db();
-  const existing = (await sql.query(
-    `SELECT count(*) AS n FROM apps WHERE owner_user_id = $1 AND status = 'active'`,
-    [userId],
-  )) as { n: string }[];
-  if (Number(existing[0].n) >= MAX_APPS_PER_USER) {
-    throw new Error(`You can have up to ${MAX_APPS_PER_USER} apps. Delete one to add another.`);
-  }
   const id = crypto.randomUUID();
   const publicId = await generateAppId(secret());
-  await sql.transaction([
+  // One user's creates run one at a time, so two at once cannot both slip under the limit.
+  const results = await sql.transaction([
+    sql.query(`SELECT pg_advisory_xact_lock(hashtextextended($1, 0))`, [`apps:${userId}`]),
     sql.query(
-      `INSERT INTO apps (id, owner_user_id, name, allowed_origins) VALUES ($1::uuid, $2, $3, $4::text[])`,
-      [id, userId, name, allowedOrigins],
+      `INSERT INTO apps (id, owner_user_id, name, allowed_origins)
+       SELECT $1::uuid, $2, $3, $4::text[]
+       WHERE (SELECT count(*) FROM apps WHERE owner_user_id = $2 AND status = 'active') < $5
+       RETURNING id`,
+      [id, userId, name, allowedOrigins, MAX_APPS_PER_USER],
     ),
-    sql.query(`INSERT INTO app_ids (id, app_id) VALUES ($1, $2::uuid)`, [publicId, id]),
+    sql.query(`INSERT INTO app_ids (id, app_id) SELECT $3, $1::uuid WHERE ${OWNED}`, [id, userId, publicId]),
   ]);
+  if ((results[1] as unknown[]).length === 0) {
+    throw new UserError(`You can have up to ${MAX_APPS_PER_USER} apps. Delete one to add another.`);
+  }
   return id;
 }
 
@@ -159,27 +163,41 @@ export async function setRecipients(userId: string, appId: string, recipientAllo
   return rows.length > 0;
 }
 
-/** Replaces the app's App ID. The old one stops working within about a minute. */
+/** Replaces the app's App ID. The old one stops working within a minute or two. */
 export async function rotateAppId(userId: string, appId: string): Promise<string | null> {
-  if (!(await getApp(userId, appId))) return null;
+  if (!UUID.test(appId)) return null;
   const sql = db();
   const publicId = await generateAppId(secret());
-  await sql.transaction([
-    sql.query(`UPDATE app_ids SET disabled_at = now() WHERE app_id = $1::uuid AND disabled_at IS NULL`, [appId]),
-    sql.query(`INSERT INTO app_ids (id, app_id) VALUES ($1, $2::uuid)`, [publicId, appId]),
+  // The lock keeps two replacements at once from leaving two working IDs.
+  const results = await sql.transaction([
+    sql.query(`SELECT pg_advisory_xact_lock(hashtextextended($1, 0))`, [`app:${appId}`]),
+    sql.query(
+      `UPDATE app_ids SET disabled_at = now() WHERE app_id = $1::uuid AND disabled_at IS NULL AND ${OWNED}`,
+      [appId, userId],
+    ),
+    sql.query(`INSERT INTO app_ids (id, app_id) SELECT $3, $1::uuid WHERE ${OWNED} RETURNING id`, [appId, userId, publicId]),
   ]);
-  return publicId;
+  return (results[2] as unknown[]).length > 0 ? publicId : null;
 }
 
 /** Deletes an app: its App IDs stop working and it leaves the list. Its payments are kept. */
 export async function deleteApp(userId: string, appId: string): Promise<boolean> {
-  if (!(await getApp(userId, appId))) return false;
+  if (!UUID.test(appId)) return false;
   const sql = db();
-  await sql.transaction([
-    sql.query(`UPDATE apps SET status = 'deleted', updated_at = now() WHERE id = $1::uuid`, [appId]),
-    sql.query(`UPDATE app_ids SET disabled_at = now() WHERE app_id = $1::uuid AND disabled_at IS NULL`, [appId]),
+  const results = await sql.transaction([
+    sql.query(`SELECT pg_advisory_xact_lock(hashtextextended($1, 0))`, [`app:${appId}`]),
+    // The IDs first: once the app is marked deleted it no longer counts as owned.
+    sql.query(
+      `UPDATE app_ids SET disabled_at = now() WHERE app_id = $1::uuid AND disabled_at IS NULL AND ${OWNED}`,
+      [appId, userId],
+    ),
+    sql.query(
+      `UPDATE apps SET status = 'deleted', updated_at = now()
+       WHERE id = $1::uuid AND owner_user_id = $2 AND status = 'active' RETURNING id`,
+      [appId, userId],
+    ),
   ]);
-  return true;
+  return (results[2] as unknown[]).length > 0;
 }
 
 type PaymentRow = {

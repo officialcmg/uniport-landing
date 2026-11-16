@@ -9,6 +9,7 @@ import { AccountMenu, AppSwitcher } from "@/components/dashboard/nav";
 import { LINKS } from "@/lib/chains";
 
 export const metadata: Metadata = { title: "Dashboard", robots: { index: false } };
+export const dynamic = "force-dynamic";
 
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
   const user = await requireUser();

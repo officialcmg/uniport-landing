@@ -29,10 +29,10 @@ export function PaymentsTable({ payments, compact = false }: { payments: Payment
             </tr>
           </thead>
           <tbody>
-            {payments.map((payment) => {
+            {payments.map((payment, index) => {
               const status = statusLabel(payment.status);
               return (
-                <tr key={payment.depositAddress} className="border-b border-line-100 last:border-0 hover:bg-surface-300/50">
+                <tr key={`${payment.depositAddress}:${index}`} className="border-b border-line-100 last:border-0 hover:bg-surface-300/50">
                   <td className={`${td} u-num text-ink-200`}>{formatWhen(payment.createdAt)}</td>
                   <td className={td}>
                     <Badge variant={status.variant}>{status.label}</Badge>
@@ -55,10 +55,10 @@ export function PaymentsTable({ payments, compact = false }: { payments: Payment
       </div>
 
       <ul className="border-t border-line-100 md:hidden">
-        {payments.map((payment) => {
+        {payments.map((payment, index) => {
           const status = statusLabel(payment.status);
           return (
-            <li key={payment.depositAddress} className="flex flex-col gap-1.5 border-b border-line-100 px-5 py-3.5 last:border-0">
+            <li key={`${payment.depositAddress}:${index}`} className="flex flex-col gap-1.5 border-b border-line-100 px-5 py-3.5 last:border-0">
               <div className="flex items-center justify-between gap-3">
                 <span className="min-w-0 truncate text-sm font-medium text-ink-100">
                   {formatTokenAmount(payment.amountOut, payment.destinationAsset)}

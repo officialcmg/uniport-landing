@@ -6,6 +6,7 @@ import { Lockup } from "@/components/site/site-header";
 import { SignInForm } from "@/components/dashboard/sign-in-form";
 
 export const metadata: Metadata = { title: "Sign in", robots: { index: false } };
+export const dynamic = "force-dynamic";
 
 export default async function SignInPage() {
   if (await currentUser()) redirect("/dashboard");

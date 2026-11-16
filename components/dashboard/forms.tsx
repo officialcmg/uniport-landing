@@ -163,7 +163,7 @@ function SettingsForm({
   );
 }
 
-const API_DELAY = "Saved. The API picks this up within about a minute.";
+const API_DELAY = "Saved. The API picks this up within a minute or two.";
 
 export function NameForm({ app }: { app: { id: string; name: string } }) {
   return (
@@ -272,7 +272,7 @@ function ReplaceAppIdForm({ appId, onDone }: { appId: string; onDone: () => void
       <DialogHeader>
         <DialogTitle>Replace the App ID?</DialogTitle>
         <DialogDescription>
-          This creates a new App ID and switches the current one off within about a minute. Sites still using the
+          This creates a new App ID and switches the current one off within a minute or two. Sites still using the
           old ID stop taking payments until you update them.
         </DialogDescription>
       </DialogHeader>
