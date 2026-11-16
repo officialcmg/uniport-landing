@@ -16,7 +16,7 @@ Only `recipient` and `destinationToken` are required.
 
 <H2 id="amount">Fixed amounts</H2>
 
-With `amount`, the modal asks for exactly that much of your destination token. The payer’s quote is rounded up only when the increase is 0.25% or less.
+With `amount`, the modal asks for exactly that much of your destination token. The payer’s quote is rounded up to a shorter number, by at most 0.01%.
 
 Without it, the payer enters how much they send and your app receives the quoted output.
 
