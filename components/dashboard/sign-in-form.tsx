@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 import { authClient } from "@/lib/auth/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,7 +9,6 @@ import { CodeInput } from "@/components/dashboard/code-input";
 
 /** Sign in with a code sent by email. A new address gets an account on first sign-in. */
 export function SignInForm({ github = false }: { github?: boolean }) {
-  const router = useRouter();
   const [step, setStep] = useState<"email" | "code">("email");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -33,19 +31,24 @@ export function SignInForm({ github = false }: { github?: boolean }) {
     }
   }
 
+  // A ref, because a phone keyboard filling the code in can fire twice before the first render.
+  const verifying = useRef(false);
+
   async function verify(otp = code) {
-    if (busy) return;
+    if (verifying.current) return;
+    verifying.current = true;
     setBusy(true);
     setError(null);
     try {
       const { error: failure } = await authClient.signIn.emailOtp({ email, otp });
       if (failure) throw new Error(failure.message || "That code is not right.");
-      router.replace("/dashboard");
-      router.refresh();
+      // A full page load, so the dashboard is fetched with the new session cookie.
+      window.location.assign("/dashboard");
     } catch (failure) {
       setError(failure instanceof Error ? failure.message : "That code is not right. Please try again.");
       setCode("");
       setBusy(false);
+      verifying.current = false;
     }
   }
 
