@@ -6,7 +6,7 @@ import { Slot } from "radix-ui"
 // Uniport button: primary (ink fill), secondary, ghost, and accent (Flare —
 // reserved for the moment money moves). Sizes sm 28 / md 36 / lg 44.
 const buttonVariants = cva(
-  "inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent font-sans font-medium whitespace-nowrap transition-[background-color,border-color,box-shadow,color] duration-150 ease-[cubic-bezier(0.2,0,0,1)] outline-none select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-text active:translate-y-px disabled:pointer-events-none disabled:opacity-45 aria-disabled:pointer-events-none aria-disabled:opacity-45 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent font-sans font-medium whitespace-nowrap transition-[background-color,border-color,box-shadow,color] duration-150 ease-[cubic-bezier(0.2,0,0,1)] select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-text active:translate-y-px disabled:pointer-events-none disabled:opacity-45 aria-disabled:pointer-events-none aria-disabled:opacity-45 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {

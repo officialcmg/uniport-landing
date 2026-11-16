@@ -20,7 +20,7 @@ export function CopyValue({ value, label, className }: { value: string; label: s
       <button
         type="button"
         aria-label={copied ? `${label} copied` : `Copy ${label}`}
-        className="ml-1 flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-ink-300 outline-none hover:text-ink-100 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-text"
+        className="ml-1 flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-ink-300 hover:text-ink-100 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-text"
         onClick={async () => {
           try {
             await navigator.clipboard.writeText(value);

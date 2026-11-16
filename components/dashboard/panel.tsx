@@ -33,11 +33,12 @@ export function Panel({
   );
 }
 
+/** One figure: a row of a shared card on phones, a card of its own from `sm` up. */
 export function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
-    <div className="rounded-xl border border-line-100 bg-surface-200 px-5 py-4">
+    <div className="flex items-baseline justify-between gap-4 border-t border-line-100 px-5 py-3 first:border-t-0 sm:block sm:rounded-xl sm:border sm:bg-surface-200 sm:py-4 sm:first:border-t">
       <dt className="text-[13px] text-ink-300">{label}</dt>
-      <dd className="u-num mt-1 text-2xl font-medium tracking-tight text-ink-100">{value}</dd>
+      <dd className="u-num text-base font-medium tracking-tight text-ink-100 sm:mt-1 sm:text-2xl">{value}</dd>
       {hint ? <dd className="mt-1 text-xs text-ink-300">{hint}</dd> : null}
     </div>
   );
@@ -55,4 +56,4 @@ export function EmptyState({ title, children, action }: { title: string; childre
 }
 
 export const textLink =
-  "rounded-sm text-brand-text underline-offset-4 hover:underline outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-text";
+  "rounded-sm text-brand-text underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-text";

@@ -83,10 +83,13 @@ export default function LandingPage() {
                 </p>
                 <div className="u-row" style={{ gap: 12 }}>
                   <Button asChild variant="primary" size="lg">
-                    <a href={LINKS.demo}>Try the demo</a>
+                    <Link href="/dashboard">Get an App ID</Link>
                   </Button>
                   <Button asChild variant="secondary" size="lg">
                     <Link href={LINKS.docs}>Read the docs</Link>
+                  </Button>
+                  <Button asChild variant="ghost" size="lg">
+                    <a href={LINKS.demo}>Try the demo</a>
                   </Button>
                 </div>
                 <InstallCommand />
@@ -421,10 +424,13 @@ export default function LandingPage() {
                 </p>
                 <div className="u-row" style={{ gap: 12, marginTop: 8 }}>
                   <Button asChild variant="primary" size="lg">
-                    <a href={LINKS.demo}>Open demo</a>
+                    <Link href="/dashboard">Get an App ID</Link>
                   </Button>
                   <Button asChild variant="secondary" size="lg">
                     <Link href={LINKS.docs}>Read the docs</Link>
+                  </Button>
+                  <Button asChild variant="ghost" size="lg">
+                    <a href={LINKS.demo}>Open demo</a>
                   </Button>
                 </div>
               </div>
