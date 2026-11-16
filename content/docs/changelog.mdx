@@ -2,6 +2,12 @@ export const meta = {
   lede: "What changed in each uniport-sdk release.",
 }
 
+## 0.1.1
+
+November 16, 2026
+
+- When you set a fixed `amount`, the payer’s amount is rounded up to a shorter number. That rounding is now capped at 0.01% (one cent per $100), down from 0.25%. The payer sends at most five significant digits.
+
 ## 0.1.0
 
 November 16, 2026
