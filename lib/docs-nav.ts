@@ -26,7 +26,7 @@ export const DOC_PAGES: DocPage[] = [
   { slug: "memo-chains", title: "Memo chains", group: "Reference", description: "Chains that need a memo alongside the deposit address." },
   { slug: "errors", title: "Errors", group: "Reference", description: "UniportError and its codes." },
   { slug: "faq", title: "FAQ", group: "Resources", description: "Answers to what developers ask first." },
-  { slug: "changelog", title: "Changelog", group: "Resources", description: "What changed in each uniport-sdk release.", note: "0.1.0" },
+  { slug: "changelog", title: "Changelog", group: "Resources", description: "What changed in each uniport-sdk release.", note: "0.1.1" },
 ];
 
 export const docHref = (slug: string) => `/docs/${slug}`;
