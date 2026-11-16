@@ -77,7 +77,7 @@ export default async function DocPage({ params }: { params: Promise<{ slug: stri
               Edit this page on GitHub
             </a>
             <Link className="u-caption" href="/docs/changelog">
-              Changelog · 0.1.1
+              Changelog · 0.1.2
             </Link>
           </div>
         </main>
