@@ -19,13 +19,14 @@ export const DOC_PAGES: DocPage[] = [
   { slug: "how-it-works", title: "How it works", group: "Getting started", description: "What happens between a click and a settled deposit." },
   { slug: "uniport-button", title: "UniportButton", nav: "Props", group: "UniportButton", description: "Every prop the button accepts, and every destination token." },
   { slug: "callbacks", title: "Callbacks", group: "UniportButton", description: "onSuccess, onError and onOpenChange." },
+  { slug: "confirm-payment", title: "Confirm a payment", group: "UniportButton", description: "Check a payment on your server before you fulfil an order." },
   { slug: "styling", title: "Styling", group: "UniportButton", description: "Theme, variant and className." },
   { slug: "chains-and-tokens", title: "Chains and tokens", group: "Reference", description: "All 32 source chains and 97 destination tokens." },
   { slug: "refunds", title: "Refunds", group: "Reference", description: "Where funds go when a payment can’t complete." },
   { slug: "memo-chains", title: "Memo chains", group: "Reference", description: "Chains that need a memo alongside the deposit address." },
   { slug: "errors", title: "Errors", group: "Reference", description: "UniportError and its codes." },
   { slug: "faq", title: "FAQ", group: "Resources", description: "Answers to what developers ask first." },
-  { slug: "changelog", title: "Changelog", group: "Resources", description: "What changed in each uniport-sdk release.", note: "0.0.7" },
+  { slug: "changelog", title: "Changelog", group: "Resources", description: "What changed in each uniport-sdk release.", note: "0.1.0" },
 ];
 
 export const docHref = (slug: string) => `/docs/${slug}`;

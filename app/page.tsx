@@ -52,7 +52,7 @@ const USES: { icon: IconName; title: string; body: React.ReactNode; label: strin
 ];
 
 const FAQ = [
-  ["Do I need an API key?", "No. The SDK calls Uniport’s hosted backend, which keeps the routing API key server-side. Nothing secret ships in your client."],
+  ["Do I need an API key?", "No secret key. You create a free App ID in the dashboard and pass it to the button. It is public, so nothing secret ships in your client, and on localhost you can start without one."],
   ["Where do funds settle?", "To the recipient address you pass, on the chain and token named by destinationToken. With optimismUSDC, your app receives USDC on Optimism."],
   ["What happens if a payment fails?", "Funds go back to the payer’s refund address on the chain they paid from. The payer enters it in the modal, or you prefill it with the refundAddress prop. With a fixed amount, refunds go to Uniport’s NEAR Intents account instead, and the payer contacts Uniport to get them back."],
   ["Which chains need a memo?", "Stellar. The modal shows the memo right next to the deposit address, with its own copy button."],
@@ -91,7 +91,7 @@ export default function LandingPage() {
                 </div>
                 <InstallCommand />
                 <div className="h-trust">
-                  {["No API key", "MIT licensed", "React 18+"].map((t) => (
+                  {["Free App ID", "MIT licensed", "React 18+"].map((t) => (
                     <span key={t}>
                       <Icon name="check" size="sm" />
                       {t}
@@ -210,7 +210,7 @@ export default function LandingPage() {
                     <div>
                       <p className="u-h4">Ship it</p>
                       <p className="u-small" style={{ marginTop: 4 }}>
-                        Your users pick a chain, get an exact quote, and pay. No backend of your own, no API key.
+                        Your users pick a chain, get an exact quote, and pay. No backend of your own, no secret key.
                       </p>
                     </div>
                   </li>
@@ -461,7 +461,7 @@ function SiteFooter() {
             <Lockup />
           </div>
           <p className="u-small" style={{ maxWidth: 280 }}>Chain-abstraction SDK for crypto app deposits.</p>
-          <p className="u-caption u-mono">uniport-sdk 0.0.11 · MIT</p>
+          <p className="u-caption u-mono">uniport-sdk 0.1.0 · MIT</p>
         </div>
         <div>
           <h4>Product</h4>

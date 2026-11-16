@@ -1,6 +1,6 @@
 export const meta = {
   lede: "Add a cross-chain deposit button to a React app. Your users pay from any of 32 chains. Your app receives the token you name.",
-  badges: ["React 18+", "No API key", "About 3 minutes"],
+  badges: ["React 18+", "Free App ID", "About 3 minutes"],
 }
 
 ## Before you start
@@ -10,7 +10,7 @@ export const meta = {
   <>An address your app controls on the chain you want to receive on. For USDC on Optimism, that’s an <C>0x</C> address.</>,
 ]} />
 
-<p style={{ marginTop: 12 }}>That’s all. There’s no API key to request and no backend to run.</p>
+<p style={{ marginTop: 12 }}>That’s all. There’s no backend to run and no secret key. On <C>localhost</C> you can start straight away; a deployed site needs a free App ID, which step 3 covers.</p>
 
 <Step n={1} id="install">Install the SDK</Step>
 
@@ -22,11 +22,17 @@ Render `UniportButton` wherever your app asks for funds. This is the whole integ
 
 <DepositSnippet />
 
-<Callout title="Nothing else to configure.">The SDK talks to Uniport’s hosted backend, which handles quotes, deposit addresses and status. No keys live in your client.</Callout>
+<Callout title="Nothing else to configure.">The SDK talks to Uniport’s hosted backend, which handles quotes, deposit addresses and status. No secret keys live in your client.</Callout>
 
-<Step n={3} id="values">Set your values</Step>
+<Step n={3} id="app-id">Get your App ID</Step>
 
-Replace the three props with your own:
+Sign in to the [dashboard](/dashboard), create an app, and add the website it runs on. Copy the App ID it gives you into the `appId` prop.
+
+The App ID is public, so it is safe in your site’s code. What it controls is which websites may use it, and it is how your payments show up in your dashboard. On `localhost` the button works without one, so you can try Uniport before you sign up.
+
+<Step n={4} id="values">Set your values</Step>
+
+Replace the other props with your own:
 
 <DocTable
   head={["Prop", "Set it to"]}
@@ -37,7 +43,7 @@ Replace the three props with your own:
   ]}
 />
 
-<Step n={4} id="try">Try a deposit</Step>
+<Step n={5} id="try">Try a deposit</Step>
 
 Click the button in your app. Your users go through four steps, all inside the modal:
 
@@ -57,6 +63,7 @@ Click the button in your app. Your users go through four steps, all inside the m
 
 <NextSteps
   items={[
+    { title: "Confirm a payment", body: "Check a payment on your server before you fulfil an order.", href: "/docs/confirm-payment" },
     { title: "All props", body: "Fixed amounts, refund address, theme, callbacks.", href: "/docs/uniport-button" },
     { title: "Chains and tokens", body: <>Every <C>destinationToken</C> you can name.</>, href: "/docs/chains-and-tokens" },
     { title: "Try the demo", body: "Configure the button and pay for real.", href: "https://demo.uniport.dev" },

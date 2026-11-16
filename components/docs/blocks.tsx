@@ -10,6 +10,7 @@ export const DEPOSIT_SNIPPET = `import { UniportButton } from "uniport-sdk";
 export function DepositAction() {
   return (
     <UniportButton
+      appId="app_..."
       recipient="0x..."
       destinationToken="optimismUSDC"
       label="Deposit"
@@ -160,6 +161,7 @@ export const C = ({ children }: { children: ReactNode }) => <span className="u-i
 type PropRow = { name: string; required?: boolean; type: string; def: string; desc: ReactNode };
 
 export const BUTTON_PROPS: PropRow[] = [
+  { name: "appId", type: "string", def: "—", desc: <>Your App ID from the <a className="d-link" href="/dashboard">dashboard</a>. Needed on a deployed site; optional on <C>localhost</C>.</> },
   { name: "recipient", required: true, type: "string", def: "—", desc: "Your address on the destination chain. Funds settle here." },
   { name: "destinationToken", required: true, type: "string", def: "—", desc: <>What your app receives, as <C>{"{chain}{SYMBOL}"}</C>. See <a className="d-link" href="#tokens">destination tokens</a>.</> },
   { name: "label", type: "string", def: "\"Pay with Crypto\"", desc: "The button text." },
@@ -169,7 +171,7 @@ export const BUTTON_PROPS: PropRow[] = [
   { name: "variant", type: "\"default\" | \"compact\" | \"outline\"", def: "\"default\"", desc: "Button style." },
   { name: "disabled", type: "boolean", def: "false", desc: "Disables the button." },
   { name: "className", type: "string", def: "—", desc: "Class name for your own styles." },
-  { name: "onSuccess", type: "(result) => void", def: "—", desc: <>Called when the payment completes, with <C>{"{ txHash, amount }"}</C>.</> },
+  { name: "onSuccess", type: "(result) => void", def: "—", desc: <>Called when the payment completes, with <C>{"{ txHash, amount, depositAddress, depositMemo, correlationId }"}</C>.</> },
   { name: "onError", type: "(error) => void", def: "—", desc: "Called when the payment fails." },
   { name: "onOpenChange", type: "(open) => void", def: "—", desc: "Called when the modal opens or closes." },
 ];
