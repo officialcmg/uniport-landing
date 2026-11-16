@@ -61,6 +61,9 @@ export function SiteHeader({
               GitHub
             </a>
           </Button>
+          <Button asChild variant="ghost" size="sm" className="u-hide-sm">
+            <Link href="/dashboard">Dashboard</Link>
+          </Button>
           <Button asChild variant="primary" size="sm">
             <a href={LINKS.demo}>Launch demo</a>
           </Button>

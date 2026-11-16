@@ -4,13 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/site/icon";
 import { CodeCopyButton } from "@/components/site/copy";
 
-type Prop = "rec" | "dest" | "label";
+type Prop = "app" | "rec" | "dest" | "label";
 
 const SNIPPET = `import { UniportButton } from "uniport-sdk";
 
 export function DepositAction() {
   return (
     <UniportButton
+      appId="app_..."
       recipient="0x..."
       destinationToken="optimismUSDC"
       label="Deposit"
@@ -19,6 +20,7 @@ export function DepositAction() {
 }`;
 
 const CAPTIONS: Record<Prop, string> = {
+  app: "appId — your free App ID from the dashboard. It says which payments are yours.",
   rec: "recipient — your address on the destination chain. Funds settle here.",
   dest: "destinationToken — what your app receives, and on which chain: USDC on Optimism.",
   label: "label — the words on the button your users press.",
@@ -72,12 +74,13 @@ export function HeroCode() {
           <span className="u-ln"><i>3</i><span className="u-k">export function</span> DepositAction() {"{"}</span>
           <span className="u-ln"><i>4</i>{"  "}<span className="u-k">return</span> (</span>
           <span className="u-ln"><i>5</i>{"    "}<span className="u-t">&lt;UniportButton</span></span>
-          <button type="button" className={line("rec")} {...handlers("rec")}><i>6</i>{"      "}<span className="u-a">recipient</span>=<span className="u-s">&quot;0x...&quot;</span></button>
-          <button type="button" className={line("dest")} {...handlers("dest")}><i>7</i>{"      "}<span className="u-a">destinationToken</span>=<span className="u-s">&quot;optimismUSDC&quot;</span></button>
-          <button type="button" className={line("label")} {...handlers("label")}><i>8</i>{"      "}<span className="u-a">label</span>=<span className="u-s">&quot;Deposit&quot;</span></button>
-          <span className="u-ln"><i>9</i>{"    "}<span className="u-t">/&gt;</span></span>
-          <span className="u-ln"><i>10</i>{"  "});</span>
-          <span className="u-ln"><i>11</i>{"}"}</span>
+          <button type="button" className={line("app")} {...handlers("app")}><i>6</i>{"      "}<span className="u-a">appId</span>=<span className="u-s">&quot;app_...&quot;</span></button>
+          <button type="button" className={line("rec")} {...handlers("rec")}><i>7</i>{"      "}<span className="u-a">recipient</span>=<span className="u-s">&quot;0x...&quot;</span></button>
+          <button type="button" className={line("dest")} {...handlers("dest")}><i>8</i>{"      "}<span className="u-a">destinationToken</span>=<span className="u-s">&quot;optimismUSDC&quot;</span></button>
+          <button type="button" className={line("label")} {...handlers("label")}><i>9</i>{"      "}<span className="u-a">label</span>=<span className="u-s">&quot;Deposit&quot;</span></button>
+          <span className="u-ln"><i>10</i>{"    "}<span className="u-t">/&gt;</span></span>
+          <span className="u-ln"><i>11</i>{"  "});</span>
+          <span className="u-ln"><i>12</i>{"}"}</span>
         </pre>
         <div
           aria-live="polite"

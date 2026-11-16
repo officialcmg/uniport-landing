@@ -9,7 +9,7 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 const description =
-  "Uniport lets apps receive assets on their home chain while users pay from whatever chain they already use. One React component, no API key.";
+  "Uniport lets apps receive assets on their home chain while users pay from whatever chain they already use. One React component, no backend to run.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://uniport.dev"),

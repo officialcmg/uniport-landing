@@ -4,7 +4,15 @@ export const meta = {
 
 ## Do I need an API key?
 
-No. The SDK calls Uniport’s hosted backend, which keeps the routing API key server-side. Nothing secret ships in your client.
+No secret key. You create a free App ID in the [dashboard](/dashboard) and pass it to the button as `appId`. It is public, so nothing secret ships in your client. On `localhost` the button works without one.
+
+## What does the App ID protect?
+
+It says which payments are yours, and it only works in a browser on the websites you list for the app. It does not stop someone calling the API from a script, where the usual rate limits apply. If you only ever take payments to a few addresses, list them in the app’s settings: the app will then refuse a payment to any other address.
+
+## How do I know a payment really happened?
+
+Don’t rely on `onSuccess` alone; it runs in the payer’s browser. Have your server [confirm the payment](/docs/confirm-payment) before you ship goods or grant access.
 
 ## Where do funds settle?
 

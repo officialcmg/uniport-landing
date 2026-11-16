@@ -25,7 +25,7 @@ export async function GET() {
 
   const text = `# Uniport
 
-> Uniport is a chain-abstraction SDK. Apps receive funds on their home chain while users pay from any of 32 chains. One React component, \`UniportButton\` from \`uniport-sdk\`; no API key.
+> Uniport is a chain-abstraction SDK. Apps receive funds on their home chain while users pay from any of 32 chains. One React component, \`UniportButton\` from \`uniport-sdk\`, and a free public App ID from https://uniport.dev/dashboard (not needed on localhost).
 
 The whole integration:
 
@@ -35,6 +35,7 @@ import { UniportButton } from "uniport-sdk";
 export function DepositAction() {
   return (
     <UniportButton
+      appId="app_..."
       recipient="0x..."
       destinationToken="optimismUSDC"
       label="Deposit"

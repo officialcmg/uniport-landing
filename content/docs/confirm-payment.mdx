@@ -1,0 +1,84 @@
+export const meta = {
+  lede: "onSuccess runs in the payer’s browser, so it can be faked. Before you ship goods or grant access, have your server check the payment with Uniport.",
+}
+
+## How it works
+
+When a payment completes, `onSuccess` gives your page the payment’s `depositAddress`. Send it to your server. Your server asks Uniport about that address and checks that the answer matches the order.
+
+<Code
+  file="Checkout.tsx"
+  code={`<UniportButton
+  appId="app_..."
+  recipient="0x..."
+  destinationToken="arbitrumUSDC"
+  amount="25"
+  onSuccess={(result) =>
+    fetch("/api/orders/confirm", {
+      method: "POST",
+      body: JSON.stringify({ orderId, depositAddress: result.depositAddress }),
+    })
+  }
+/>`}
+/>
+
+## Check the payment
+
+Call `GET https://api.uniport.dev/v1/payments/{depositAddress}` from your server. No key is needed. On chains that use a memo, add `?memo=` with the `depositMemo` from `onSuccess`.
+
+<Code
+  file="confirm.ts"
+  lang="ts"
+  code={`const res = await fetch(
+  \`https://api.uniport.dev/v1/payments/\${depositAddress}\`
+);
+const payment = await res.json();
+
+const paid =
+  payment.status === "SUCCESS" &&
+  payment.appId === process.env.UNIPORT_APP_ID &&
+  payment.recipient.toLowerCase() === MY_WALLET.toLowerCase() &&
+  payment.destinationAsset === EXPECTED_ASSET &&
+  BigInt(payment.amountOut) >= EXPECTED_AMOUNT &&
+  !(await alreadyUsed(depositAddress));`}
+/>
+
+Check all of these:
+
+<DocTable
+  head={["Field", "Check that"]}
+  rows={[
+    [<M>status</M>, <>It is <C>SUCCESS</C>. Other values mean the payment is still in progress, was refunded, or failed.</>],
+    [<M>appId</M>, "It is your App ID, so the payment was made through your app and not someone else’s."],
+    [<M>recipient</M>, "It is your address."],
+    [<M>destinationAsset</M>, "It is the token you expected, on the chain you expected."],
+    [<M>amountOut</M>, "It is at least the order amount. It is in the token’s smallest units: 25 USDC is 25000000."],
+    [<M>depositAddress</M>, "You have not already accepted it for another order. Store each one you accept."],
+  ]}
+/>
+
+## The response
+
+<DocTable
+  head={["Field", "What it is"]}
+  rows={[
+    [<M>status</M>, <><C>PENDING_DEPOSIT</C>, <C>KNOWN_DEPOSIT_TX</C>, <C>PROCESSING</C>, <C>SUCCESS</C>, <C>INCOMPLETE_DEPOSIT</C>, <C>REFUNDED</C> or <C>FAILED</C>.</>],
+    [<M>isComplete</M>, "True once the payment has succeeded, been refunded or failed."],
+    [<M>appId</M>, <>The App ID the payment was made with, or <C>null</C>.</>],
+    [<M>record</M>, <><C>found</C>, <C>missing</C> (Uniport has no record of this payment, so <C>appId</C> is <C>null</C>) or <C>unavailable</C> (the record couldn’t be read just now; ask again).</>],
+    [<M>recipient</M>, "The address the payment is delivered to."],
+    [<M>originAsset</M>, "The token the payer paid with."],
+    [<M>destinationAsset</M>, "The token delivered to the recipient."],
+    [<M>amountOut</M>, <>The amount delivered, in the destination token’s smallest units. <C>null</C> until the payment completes.</>],
+    [<M>quotedAmountOut</M>, "The amount the payer was quoted."],
+    [<M>destinationTxHashes</M>, "The delivery transactions on the destination chain."],
+    [<M>createdAt</M>, "When the payer was given the deposit address."],
+    [<M>signedQuote</M>, "The quote as signed by NEAR Intents, if you want to verify the signature yourself."],
+  ]}
+/>
+
+## What this does not do
+
+It does not tie a payment to one particular order. The check proves that a payment of the right amount reached your address through your app, and that you have not used it before. If two customers place orders for the same amount at the same time, the only thing telling their payments apart is which deposit address each browser reports. If that matters for what you sell, give each order its own amount or its own recipient address.
+
+<Callout tone="warn" title="Check on every order.">A page can call your confirm endpoint with any deposit address it likes. Never mark an order paid without running the checks above on your server.</Callout>

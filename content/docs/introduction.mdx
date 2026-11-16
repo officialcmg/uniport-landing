@@ -1,13 +1,14 @@
 export const meta = {
   lede: "Uniport is a chain-abstraction SDK. Your app receives funds on its home chain while users pay from whichever chain they already hold assets on.",
-  badges: ["uniport-sdk 0.0.11", "MIT", "React 18+"],
+  badges: ["uniport-sdk 0.1.0", "MIT", "React 18+"],
 }
 
 ## What you get
 
 <Checklist items={[
   <>One React component, <C>UniportButton</C>, that opens a complete deposit flow.</>,
-  "No API key. The SDK talks to Uniport’s hosted backend, which keeps keys server-side.",
+  "No backend to run and no secret key. A free, public App ID from the dashboard is all a deployed site needs.",
+  "A dashboard that shows each app’s payments, and a way for your server to confirm a payment before you fulfil an order.",
   "32 source chains your users can pay from, and 97 destination tokens your app can receive.",
   "An exact quote and one deposit address for every payment, with refunds on the source chain.",
 ]} />

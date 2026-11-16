@@ -11,10 +11,11 @@ export const meta = {
 export function DepositAction() {
   return (
     <UniportButton
+      appId="app_..."
       recipient="0x..."
       destinationToken="optimismUSDC"
       label="Deposit"
-      onSuccess={(result) => console.log(result.txHash)}
+      onSuccess={(result) => console.log(result.depositAddress)}
       onError={(error) => console.error(error.message)}
       onOpenChange={(open) => console.log(open)}
     />
@@ -24,7 +25,20 @@ export function DepositAction() {
 
 ## onSuccess
 
-Called when the payment completes. It receives `{ txHash: string; amount: string }`.
+Called when the payment completes. It receives:
+
+<DocTable
+  head={["Field", "What it is"]}
+  rows={[
+    [<M>txHash</M>, "The first transaction hash on the destination chain, or an empty string if none was reported."],
+    [<M>amount</M>, "The quoted amount delivered, in the destination token’s smallest units."],
+    [<M>depositAddress</M>, "The payment’s deposit address. Send this to your server to confirm the payment."],
+    [<M>depositMemo</M>, "The deposit memo, on chains that use one."],
+    [<M>correlationId</M>, "A reference for the quote, useful when asking for support."],
+  ]}
+/>
+
+`onSuccess` runs in the payer’s browser, so treat it as a hint and not as proof. Before you ship goods or grant access, [confirm the payment on your server](/docs/confirm-payment).
 
 ## onError
 

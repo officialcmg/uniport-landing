@@ -2,6 +2,25 @@ export const meta = {
   lede: "What changed in each uniport-sdk release.",
 }
 
+## 0.1.0
+
+November 16, 2026
+
+This release changes how you set up the button. A deployed site now needs an App ID.
+
+- **App IDs.** Create a free app in the [dashboard](/dashboard) and pass its ID as the new `appId` prop (or once with `configureUniport({ appId })`). On `localhost` the button still works without one. The App ID is public; it says which payments are yours and which websites may take them.
+- **A dashboard.** See each app’s payments and volume, choose the websites allowed to use its App ID, and optionally limit the addresses it can be paid to.
+- **Confirm a payment on your server.** `onSuccess` now also returns `depositAddress`, `depositMemo` and `correlationId`. Send the deposit address to your server and check it with `GET https://api.uniport.dev/v1/payments/{depositAddress}`. See [Confirm a payment](/docs/confirm-payment).
+- New error codes for setup problems: `APP_ID_REQUIRED`, `APP_NOT_FOUND`, `ORIGIN_NOT_ALLOWED`, `RECIPIENT_NOT_ALLOWED`, plus `RATE_LIMITED`. The payer sees a neutral message and the reason is logged to the browser console.
+- `referral` is removed from `QuoteOptions`.
+- Versions before 0.0.12 no longer work: they use a backend that has been shut down.
+
+## 0.0.12
+
+November 15, 2026
+
+- The SDK now uses the new backend at `api.uniport.dev`.
+
 ## 0.0.11
 
 October 27, 2026

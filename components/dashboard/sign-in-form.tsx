@@ -1,0 +1,140 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth/client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+/** Sign in with a code sent by email. A new address gets an account on first sign-in. */
+export function SignInForm({ github = false }: { github?: boolean }) {
+  const router = useRouter();
+  const [step, setStep] = useState<"email" | "code">("email");
+  const [email, setEmail] = useState("");
+  const [code, setCode] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function sendCode() {
+    setBusy(true);
+    setError(null);
+    try {
+      const { error: failure } = await authClient.emailOtp.sendVerificationOtp({ email, type: "sign-in" });
+      if (failure) throw new Error(failure.message || "Could not send the code.");
+      setStep("code");
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : "Could not send the code. Please try again.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function verify() {
+    setBusy(true);
+    setError(null);
+    try {
+      const { error: failure } = await authClient.signIn.emailOtp({ email, otp: code.trim() });
+      if (failure) throw new Error(failure.message || "That code is not right.");
+      router.replace("/dashboard");
+      router.refresh();
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : "That code is not right. Please try again.");
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="flex flex-col gap-5">
+      {step === "email" ? (
+        <form
+          className="flex flex-col gap-3"
+          onSubmit={(event) => {
+            event.preventDefault();
+            void sendCode();
+          }}
+        >
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            placeholder="you@example.com"
+            required
+            autoFocus
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <Button type="submit" variant="primary" block disabled={busy || !email}>
+            {busy ? "Sending…" : "Email me a sign-in code"}
+          </Button>
+        </form>
+      ) : (
+        <form
+          className="flex flex-col gap-3"
+          onSubmit={(event) => {
+            event.preventDefault();
+            void verify();
+          }}
+        >
+          <p className="text-sm text-ink-200">
+            We sent a code to <span className="text-ink-100">{email}</span>. It expires in a few minutes.
+          </p>
+          <Label htmlFor="code">Code</Label>
+          <Input
+            id="code"
+            name="code"
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            placeholder="123456"
+            required
+            autoFocus
+            value={code}
+            onChange={(event) => setCode(event.target.value)}
+          />
+          <Button type="submit" variant="primary" block disabled={busy || !code.trim()}>
+            {busy ? "Checking…" : "Sign in"}
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            block
+            disabled={busy}
+            onClick={() => {
+              setStep("email");
+              setCode("");
+              setError(null);
+            }}
+          >
+            Use a different email
+          </Button>
+        </form>
+      )}
+
+      {github ? (
+        <>
+          <div className="flex items-center gap-3 text-xs text-ink-300">
+            <span className="h-px flex-1 bg-line-100" />
+            or
+            <span className="h-px flex-1 bg-line-100" />
+          </div>
+          <Button
+            type="button"
+            block
+            disabled={busy}
+            onClick={() => void authClient.signIn.social({ provider: "github", callbackURL: "/dashboard" })}
+          >
+            Continue with GitHub
+          </Button>
+        </>
+      ) : null}
+
+      {error ? (
+        <p role="alert" className="text-sm text-destructive">
+          {error}
+        </p>
+      ) : null}
+    </div>
+  );
+}
