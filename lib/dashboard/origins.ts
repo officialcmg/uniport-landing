@@ -11,6 +11,12 @@ const SHARED_DOMAINS = new Set([
   "azurewebsites.net", "cloudfront.net", "amazonaws.com", "appspot.com", "surge.sh",
   "glitch.me", "replit.app", "ngrok.io", "ngrok-free.app", "co.uk", "com.au", "co.jp",
   "com.br", "co.in", "co.nz", "co.za", "com.mx", "com.sg", "com.tr", "com.cn",
+  "org.uk", "ac.uk", "gov.uk", "me.uk", "net.uk", "ltd.uk", "plc.uk", "sch.uk", "nhs.uk",
+  "com.hk", "com.tw", "co.kr", "co.id", "co.th", "com.my", "com.ph", "com.vn", "com.ar",
+  "com.co", "com.ng", "co.ke", "com.eg", "com.sa", "com.pk", "co.il", "com.ua",
+  "myshopify.com", "wixsite.com", "squarespace.com", "webflow.io", "framer.app",
+  "framer.website", "blogspot.com", "wordpress.com", "netlify.com", "deno.dev",
+  "trycloudflare.com", "lovable.app", "bolt.host", "s3.amazonaws.com",
 ]);
 
 /**

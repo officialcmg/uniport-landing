@@ -37,6 +37,13 @@ export function MobileNav({ nav }: { nav: NavLink[] }) {
             <Icon name="github" size="sm" />
             GitHub
           </a>
+          <Link
+            href="/dashboard"
+            onClick={() => setOpen(false)}
+            className="flex h-11 items-center rounded-md px-3 text-[15px] font-medium text-ink-200 hover:bg-surface-300 hover:text-ink-100"
+          >
+            Dashboard
+          </Link>
         </nav>
       </SheetContent>
     </Sheet>

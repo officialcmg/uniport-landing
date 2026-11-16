@@ -20,6 +20,8 @@ function fromSmallestUnits(amount: string, decimals: number): string {
 function trim(value: string): string {
   const [whole, fraction = ""] = value.split(".");
   const short = fraction.slice(0, 6).replace(/0+$/, "");
+  // A real amount too small to show must not read as nothing.
+  if (!short && whole === "0" && /[1-9]/.test(fraction)) return "<0.000001";
   return short ? `${whole}.${short}` : whole;
 }
 
