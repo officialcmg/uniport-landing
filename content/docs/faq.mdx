@@ -30,9 +30,7 @@ Stellar. The modal shows the memo right next to the deposit address. See [Memo c
 
 Uniport adds no fee of its own today. The payer pays the route’s swap cost, which is already in the quote they see.
 
-With a fixed `amount`, the payer is asked to send a little more than the swap is expected to need: a buffer of up to about 1% in case the price moves, rounded up by at most 0.01%. What the route does not use is credited to Uniport’s NEAR Intents account, not returned to the payer. Without `amount`, the payer sends exactly what they enter and nothing is left over.
-
-If this changes, the [changelog](/docs/changelog) will say so before it applies.
+For checkouts with a fixed output amount, a user sends about 1% more to account for price movements. Any surplus is credited to Uniport.
 
 ## Which frameworks does it work with?
 
