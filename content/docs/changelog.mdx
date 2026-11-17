@@ -2,6 +2,16 @@ export const meta = {
   lede: "What changed in each uniport-sdk release.",
 }
 
+## 0.1.3
+
+November 17, 2026
+
+- **A wrong setup no longer breaks your page.** A missing `recipient`, an unknown `destinationToken`, a bad `amount`, or a secret key passed as `appId` is caught before any request. The button renders disabled, the console says what to change, and `onError` is called once. Before, two of these threw while rendering.
+- **The modal says why a quote failed.** “No route for this amount right now”, “This amount is too small for this route” with the minimum, or “That is not a valid refund address”, where it used to say “Could not fetch estimate”.
+- **`onError` always receives a `UniportError`**, with a `code` and a new `fixableBy`: `developer`, `payer` or `service`. New codes include `MISSING_RECIPIENT`, `INVALID_DESTINATION_TOKEN`, `NO_LIQUIDITY`, `AMOUNT_TOO_LOW`, `PAYMENT_REFUNDED` and `PAYMENT_FAILED`. See [Errors](/docs/errors).
+- `checkPaymentSetup` is exported, so you can run the same check yourself.
+- An amount the payer mistypes is explained in the modal and never sent.
+
 ## 0.1.2
 
 November 16, 2026

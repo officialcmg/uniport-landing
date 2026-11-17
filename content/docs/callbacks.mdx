@@ -42,7 +42,7 @@ Called when the payment completes. It receives:
 
 ## onError
 
-Called when the payment fails. It receives an `Error`. Failures from Uniport’s backend arrive as a `UniportError` with a `code`; see [Errors](/docs/errors).
+Called when something goes wrong: a mistake in how the button is set up, a quote that was refused, or a payment that failed or was refunded. It always receives a `UniportError`, with a `code` and a `fixableBy` that says who can do something about it. See [Errors](/docs/errors).
 
 ## onOpenChange
 

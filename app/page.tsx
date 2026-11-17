@@ -461,7 +461,7 @@ function SiteFooter() {
             <Lockup />
           </div>
           <p className="u-small" style={{ maxWidth: 280 }}>Chain-abstraction SDK for crypto app deposits.</p>
-          <p className="u-caption u-mono">uniport-sdk 0.1.2 · MIT</p>
+          <p className="u-caption u-mono">uniport-sdk 0.1.3 · MIT</p>
         </div>
         <div>
           <h4>Product</h4>
