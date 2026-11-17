@@ -86,9 +86,6 @@ export default function LandingPage() {
                     <Link href="/dashboard">Get an App ID</Link>
                   </Button>
                   <Button asChild variant="secondary" size="lg">
-                    <Link href={LINKS.docs}>Read the docs</Link>
-                  </Button>
-                  <Button asChild variant="ghost" size="lg">
                     <a href={LINKS.demo}>Try the demo</a>
                   </Button>
                 </div>
@@ -427,9 +424,6 @@ export default function LandingPage() {
                     <Link href="/dashboard">Get an App ID</Link>
                   </Button>
                   <Button asChild variant="secondary" size="lg">
-                    <Link href={LINKS.docs}>Read the docs</Link>
-                  </Button>
-                  <Button asChild variant="ghost" size="lg">
                     <a href={LINKS.demo}>Open demo</a>
                   </Button>
                 </div>

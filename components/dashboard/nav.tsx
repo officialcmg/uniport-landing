@@ -155,7 +155,7 @@ export function AppTabs({ appId }: { appId: string }) {
                 href={tab.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "-mb-px inline-flex h-10 items-center border-b-2 text-sm font-medium whitespace-nowrap transition-colors",
+                  "-mb-px inline-flex h-10 items-center rounded-sm border-b-2 text-sm font-medium whitespace-nowrap transition-colors",
                   active ? "border-ink-100 text-ink-100" : "border-transparent text-ink-300 hover:text-ink-100",
                   "focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-text",
                 )}
