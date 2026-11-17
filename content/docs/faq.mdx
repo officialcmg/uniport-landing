@@ -28,7 +28,11 @@ Stellar. The modal shows the memo right next to the deposit address. See [Memo c
 
 ## What does Uniport cost?
 
-Uniport takes 0.4% of each deposit. With a fixed `amount`, Uniport also rounds what the payer sends up to a friendlier number, by at most 0.01%, and keeps the difference.
+Uniport adds no fee of its own today. The payer pays the route’s swap cost, which is already in the quote they see.
+
+With a fixed `amount`, the payer is asked to send a little more than the swap is expected to need: a buffer of up to about 1% in case the price moves, rounded up by at most 0.01%. What the route does not use is credited to Uniport’s NEAR Intents account, not returned to the payer. Without `amount`, the payer sends exactly what they enter and nothing is left over.
+
+If this changes, the [changelog](/docs/changelog) will say so before it applies.
 
 ## Which frameworks does it work with?
 
