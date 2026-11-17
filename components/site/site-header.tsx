@@ -62,10 +62,13 @@ export function SiteHeader({
             </a>
           </Button>
           <Button asChild variant="ghost" size="sm" className="u-hide-sm">
-            <Link href="/dashboard">Dashboard</Link>
+            <a href={LINKS.demo}>Demo</a>
+          </Button>
+          <Button asChild variant="ghost" size="sm" className="u-hide-sm">
+            <Link href="/dashboard">Sign in</Link>
           </Button>
           <Button asChild variant="primary" size="sm">
-            <a href={LINKS.demo}>Launch demo</a>
+            <Link href="/dashboard">Get an App ID</Link>
           </Button>
           {mobileNav ? <MobileNav nav={nav} /> : null}
         </div>

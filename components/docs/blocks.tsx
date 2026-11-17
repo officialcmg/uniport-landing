@@ -179,7 +179,7 @@ export const BUTTON_PROPS: PropRow[] = [
 export function ButtonPropsTable() {
   return (
     <div className="u-table-wrap" style={{ marginTop: 16 }}>
-      <table className="u-table" style={{ tableLayout: "fixed" }}>
+      <table className="u-table u-table-stack d-props" style={{ tableLayout: "fixed" }}>
         <colgroup>
           <col style={{ width: 160 }} />
           <col style={{ width: 190 }} />
@@ -209,7 +209,10 @@ export function ButtonPropsTable() {
                 )}
               </td>
               <td className="d-type">{p.type}</td>
-              <td className="d-def">{p.def}</td>
+              <td className="d-def" data-empty={p.def === "—" ? "" : undefined}>
+                <span className="d-def-label">Default </span>
+                {p.def}
+              </td>
               <td>{p.desc}</td>
             </tr>
           ))}

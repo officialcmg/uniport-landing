@@ -44,6 +44,7 @@
 .d-prop{font-family:var(--font-mono);font-size:13px;color:var(--ink-100)}
 .d-type{font-family:var(--font-mono);font-size:12px;line-height:18px;color:var(--syn-a)}
 .d-def{white-space:nowrap;font-family:var(--font-mono);font-size:12px;color:var(--ink-300)}
+.d-def-label{display:none}
 .d-tokbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;flex-wrap:wrap}
 /* ⌘K search (shadcn Command) */
 .k-item{display:flex;align-items:center;gap:12px;height:44px;padding:0 12px;border-radius:8px;color:var(--ink-200);font-size:14px;cursor:pointer}
@@ -69,6 +70,15 @@
 .d-next{grid-template-columns:minmax(0,1fr)}
 .d-pn{grid-template-columns:minmax(0,1fr)}
 .d-main h2{margin-top:44px}
+.d-props{display:block}
+.d-props colgroup{display:none}
+.d-props tbody{display:block}
+.d-props tr{gap:6px}
+.d-props td br{display:none}
+.d-props td:first-child{display:flex;align-items:center;gap:8px}
+.d-props td:first-child .u-badge{margin-top:0!important}
+.d-props .d-def[data-empty]{display:none}
+.d-def-label{display:inline;font-family:var(--font-sans)}
 }
 }
 @layer components {

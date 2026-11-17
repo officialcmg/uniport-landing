@@ -12,7 +12,7 @@ const menuContent =
   "z-50 min-w-[220px] max-w-[calc(100vw-32px)] rounded-lg border border-line-200 bg-surface-200 p-1 text-sm text-ink-100 shadow-popover outline-none";
 const menuItem =
   "flex cursor-pointer items-center gap-2 rounded-md px-2.5 py-2 text-[13px] leading-5 text-ink-200 outline-none select-none data-[highlighted]:bg-surface-400 data-[highlighted]:text-ink-100 [&_svg]:size-4 [&_svg]:shrink-0";
-const focusRing = "outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-text";
+const focusRing = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-text";
 
 /**
  * The breadcrumb in the top bar. On the apps list it is a plain "Apps" label;
@@ -155,9 +155,9 @@ export function AppTabs({ appId }: { appId: string }) {
                 href={tab.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "-mb-px inline-flex h-10 items-center border-b-2 text-sm font-medium whitespace-nowrap transition-colors",
+                  "-mb-px inline-flex h-10 items-center rounded-sm border-b-2 text-sm font-medium whitespace-nowrap transition-colors",
                   active ? "border-ink-100 text-ink-100" : "border-transparent text-ink-300 hover:text-ink-100",
-                  "outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-text",
+                  "focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-text",
                 )}
               >
                 {tab.label}

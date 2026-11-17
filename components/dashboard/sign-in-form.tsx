@@ -89,7 +89,7 @@ export function SignInForm({ github = false }: { github?: boolean }) {
           }}
         >
           <p className="text-sm text-ink-200">
-            We sent a code to <span className="text-ink-100">{email}</span>. It expires in a few minutes.
+            We sent a code to <span className="text-ink-100">{email}</span>. It expires in 10 minutes.
           </p>
           <Label htmlFor="code">6-digit code</Label>
           <CodeInput
