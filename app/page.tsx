@@ -56,7 +56,7 @@ const FAQ = [
   ["Where do funds settle?", "To the recipient address you pass, on the chain and token named by destinationToken. With optimismUSDC, your app receives USDC on Optimism."],
   ["What happens if a payment fails?", "Funds go back to the payer’s refund address on the chain they paid from. The payer enters it in the modal, or you prefill it with the refundAddress prop. With a fixed amount, refunds go to Uniport’s NEAR Intents account instead, and the payer contacts Uniport to get them back."],
   ["Which chains need a memo?", "Stellar. The modal shows the memo right next to the deposit address, with its own copy button."],
-  ["What does Uniport cost?", "Uniport takes 0.4% of each deposit. With a fixed amount, Uniport also rounds what the payer sends up to a friendlier number, by at most 0.25%, and keeps the difference."],
+  ["What does Uniport cost?", "Uniport adds no fee of its own today. The payer pays the route’s swap cost, which is already in the quote they see. For checkouts with a fixed output amount, a user sends about 1% more to account for price movements. Any surplus is credited to Uniport."],
 ];
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
