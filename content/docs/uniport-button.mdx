@@ -10,7 +10,9 @@ export const meta = {
 
 ## Props
 
-Only `recipient` and `destinationToken` are required.
+Only `recipient` and `destinationToken` are required, plus `appId` on a deployed site.
+
+If a required prop is missing or wrong, the button renders disabled, the browser console says what to change, and `onError` is called once. Nothing throws, so your page keeps working. See [Errors](/docs/errors).
 
 <ButtonPropsTable />
 

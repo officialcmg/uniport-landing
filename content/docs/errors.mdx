@@ -1,29 +1,134 @@
 export const meta = {
-  lede: "When a payment fails, onError receives an Error. Failures from Uniport’s backend are normalized into a UniportError.",
+  lede: "Everything the SDK reports is a UniportError. Its code says what happened, and fixableBy says who can do something about it.",
 }
 
 ## UniportError
 
-A `UniportError` has a `message`, a stable `code`, and optionally `details` and the HTTP `status`. Timeouts, quote failures, deposit submission failures and status failures are all normalized before they reach your UI.
-
-## Codes
+A `UniportError` has:
 
 <DocTable
-  head={["code", "When"]}
+  head={["Field", "What it is"]}
   rows={[
-    [<M>VALIDATION_ERROR</M>, "A request was missing or had an invalid field."],
-    [<M>QUOTE_FAILED</M>, "No quote could be produced for this route or amount."],
-    [<M>DEPOSIT_SUBMISSION_FAILED</M>, "The deposit couldn’t be submitted for tracking."],
-    [<M>STATUS_CHECK_FAILED</M>, "The payment’s status couldn’t be fetched."],
+    [<M>code</M>, "What happened. The codes are listed below."],
+    [<M>fixableBy</M>, <><C>developer</C>, <C>payer</C> or <C>service</C>.</>],
+    [<M>message</M>, "A sentence that is safe to show the payer."],
+    [<M>details</M>, "More for you: what to change, or the route’s own answer."],
+    [<M>status</M>, "The HTTP status, when the API answered."],
+  ]}
+/>
+
+What the payer sees depends on `fixableBy`:
+
+<DocTable
+  head={["fixableBy", "Meaning", "The payer sees"]}
+  rows={[
+    [<M>developer</M>, "Your setup is wrong.", "A neutral “payments are not available” message. The reason is in details and in the browser console."],
+    [<M>payer</M>, "The payer can change something.", "A sentence saying what, such as the minimum amount."],
+    [<M>service</M>, "Nobody can fix it right now.", "A request to try again."],
+  ]}
+/>
+
+<Code
+  file="Checkout.tsx"
+  code={`<UniportButton
+  appId="app_..."
+  recipient="0x..."
+  destinationToken="arbitrumUSDC"
+  onError={(error) => {
+    if (error.fixableBy === "developer") reportToMyLogs(error.code, error.details);
+  }}
+/>`}
+/>
+
+## Your setup, found before any request
+
+The button checks what you pass it before it asks the API for anything. If something is wrong, nothing throws and your page keeps working:
+
+- `UniportButton` renders disabled.
+- `UniportModal`, used on its own, shows “Payment unavailable”.
+- The console says what to change.
+- `onError` is called once.
+
+<DocTable
+  head={["code", "Cause"]}
+  rows={[
+    [<M>MISSING_RECIPIENT</M>, <><C>recipient</C> is missing or empty.</>],
+    [<M>INVALID_RECIPIENT</M>, <><C>recipient</C> has spaces around it, or on an EVM chain is not <C>0x</C> and 40 hex characters.</>],
+    [<M>INVALID_DESTINATION_TOKEN</M>, <><C>destinationToken</C> is missing or is not a <a className="d-link" href="/docs/chains-and-tokens">supported token name</a>.</>],
+    [<M>INVALID_AMOUNT</M>, <><C>amount</C> is set but is not a string holding a positive number, or has more decimals than the token.</>],
+    [<M>SECRET_KEY_AS_APP_ID</M>, <>A secret key was passed as <C>appId</C>. It is never sent.</>],
     [<M>APP_ID_REQUIRED</M>, <>The site isn’t <C>localhost</C> and no <C>appId</C> was passed. Create an app in the <a className="d-link" href="/dashboard">dashboard</a>.</>],
+  ]}
+/>
+
+To run the same check yourself, for example before showing your own button:
+
+<Code
+  file="check.ts"
+  lang="ts"
+  code={`import { checkPaymentSetup } from "uniport-sdk";
+
+const problem = checkPaymentSetup({
+  recipient,
+  destinationToken,
+  amount,
+  appId,
+  hostname: window.location.hostname, // needed to report APP_ID_REQUIRED
+});
+if (problem) console.log(problem.code, problem.details);`}
+/>
+
+## Your setup, reported by the API
+
+These arrive when the payer asks for a quote. The payer sees the neutral message and the console says what to change.
+
+<DocTable
+  head={["code", "Cause"]}
+  rows={[
     [<M>APP_NOT_FOUND</M>, "The App ID is unknown, mistyped or switched off. Copy it again from the dashboard."],
     [<M>ORIGIN_NOT_ALLOWED</M>, "The App ID is being used on a website that isn’t on its list. Add the site to the app’s allowed websites."],
     [<M>RECIPIENT_NOT_ALLOWED</M>, "The app only accepts payments to listed addresses, and the recipient isn’t one of them."],
-    [<M>RATE_LIMITED</M>, "Too many requests in a short time. The payer is asked to wait a minute."],
+    [<M>INVALID_RECIPIENT</M>, "The recipient is not a valid address for the destination chain. Chains other than EVM are checked here."],
+    [<M>RECIPIENT_NOT_READY</M>, "The recipient can’t receive the token yet, for example a Stellar account without a trustline."],
+  ]}
+/>
+
+## The payer’s input
+
+<DocTable
+  head={["code", "Cause", "The payer is told"]}
+  rows={[
+    [<M>INVALID_INPUT</M>, "The amount typed is not a number, or has more decimals than the token.", "What to enter."],
+    [<M>NO_LIQUIDITY</M>, "There is no route for that pair at that size right now.", "To try a smaller amount or another network."],
+    [<M>AMOUNT_TOO_LOW</M>, "The amount is below the route’s minimum.", "That it is too small, with the minimum when the route gives one."],
+    [<M>INVALID_REFUND_ADDRESS</M>, "The refund address is not valid for the chain they pay from.", "That the refund address is not valid."],
+  ]}
+/>
+
+## After the payer has sent funds
+
+<DocTable
+  head={["code", "Cause"]}
+  rows={[
+    [<M>PAYMENT_REFUNDED</M>, <>The swap could not complete and the funds were refunded. See <a className="d-link" href="/docs/refunds">Refunds</a> for where they go.</>],
+    [<M>PAYMENT_FAILED</M>, "The swap failed."],
+  ]}
+/>
+
+## The service
+
+<DocTable
+  head={["code", "Cause"]}
+  rows={[
+    [<M>QUOTE_FAILED</M>, <>The route refused the quote for a reason not listed above. <C>details</C> has its answer.</>],
     [<M>QUOTE_UNVERIFIED</M>, "The quote couldn’t be verified, so no deposit address was shown. Trying again usually works."],
-    [<M>REQUEST_TIMEOUT</M>, "The backend didn’t answer within 20 seconds."],
-    [<M>NETWORK_ERROR</M>, "The backend couldn’t be reached."],
-    [<M>INTERNAL_ERROR</M>, "The backend failed unexpectedly."],
+    [<M>RATE_LIMITED</M>, "Too many requests in a short time. The payer is asked to wait a minute."],
+    [<M>REQUEST_TIMEOUT</M>, "The API didn’t answer within 20 seconds."],
+    [<M>NETWORK_ERROR</M>, "The API couldn’t be reached."],
+    [<M>VALIDATION_ERROR</M>, "The API found the request malformed."],
+    [<M>STATUS_CHECK_FAILED</M>, <>A status check failed. Thrown by <C>getExecutionStatus</C>. The button does not pass it to <C>onError</C>: it keeps checking, and tells the payer after three failures in a row.</>],
+    [<M>DEPOSIT_SUBMISSION_FAILED</M>, <>Reporting a deposit’s transaction failed. Thrown by <C>submitDepositTx</C>.</>],
+    [<M>INTERNAL_ERROR</M>, "The API failed unexpectedly."],
     [<M>UNKNOWN_ERROR</M>, "Anything else."],
   ]}
 />

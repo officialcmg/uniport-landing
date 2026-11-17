@@ -172,7 +172,7 @@ export const BUTTON_PROPS: PropRow[] = [
   { name: "disabled", type: "boolean", def: "false", desc: "Disables the button." },
   { name: "className", type: "string", def: "—", desc: "Class name for your own styles." },
   { name: "onSuccess", type: "(result) => void", def: "—", desc: <>Called when the payment completes, with <C>{"{ txHash, amount, depositAddress, depositMemo, correlationId }"}</C>.</> },
-  { name: "onError", type: "(error) => void", def: "—", desc: "Called when the payment fails." },
+  { name: "onError", type: "(error: UniportError) => void", def: "—", desc: "Called when something goes wrong, with a UniportError. See the Errors page." },
   { name: "onOpenChange", type: "(open) => void", def: "—", desc: "Called when the modal opens or closes." },
 ];
 
